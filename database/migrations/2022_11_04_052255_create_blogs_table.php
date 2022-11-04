@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('blog_category_id')->unsigned()->nullable();
             $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
             $table->string("title");
             $table->longText('description');
             $table->string('photo')->nullable();

@@ -1,4 +1,4 @@
-let lodingButton =
+var lodingButton =
     '<button class="btn btn-primary w-100" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class="">Loading...</span></button>';
 
 function formSubmit(formId, url, modalId, dataTable) {

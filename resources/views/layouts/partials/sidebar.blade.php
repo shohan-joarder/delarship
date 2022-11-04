@@ -34,14 +34,15 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">2</span></a>
-                    <ul class="menu-content">
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{url('home')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">2</span></a>
+                    {{-- <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">Analytics</span></a>
                         </li>
                         <li class="active"><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="eCommerce">eCommerce</span></a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </li>
+                <?php /*
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="app-email.html"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Email</span></a>
@@ -426,13 +427,14 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span></a>
+                */?>
+                <li class="nav-item {{\Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span></a>
                     <ul class="menu-content">
-                        <li>
-                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs List</span></a>
+
+                        <li class="{{\Route::currentRouteName() == "blog"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs List</span></a>
                         </li>
-                        <li>
+                        <li class="{{\Route::currentRouteName() == "blog-type"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('blog-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Types</span></a>
                         </li>
                         <li>
@@ -447,12 +449,16 @@
                     </ul>
                 </li>
 
+                <?php /*
                 <li class="disabled nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="eye-off"></i><span class="menu-title text-truncate" data-i18n="Disabled Menu">Disabled Menu</span></a>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation" target="_blank"><i data-feather="folder"></i><span class="menu-title text-truncate" data-i18n="Documentation">Documentation</span></a>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="https://pixinvent.ticksy.com/" target="_blank"><i data-feather="life-buoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Raise Support</span></a>
                 </li>
+                */
+                ?>
+
             </ul>
         </div>
     </div>

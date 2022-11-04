@@ -233,8 +233,6 @@
         $(document).on("click",".deleteData",function(e){
             let url = $(this).attr('data-url');
             deleteData(url,t);
-
-
         });
 
         $(document).on("click",".addNew",function(){

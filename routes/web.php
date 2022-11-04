@@ -23,13 +23,15 @@ Route::group(['middleware' => 'auth'], function () {
         return view('welcome');
     });
 
-    Route::get('/blog-types', [BlogTypesController::class, 'index'])->name('blog-type');
+    Route::get('/blog-type', [BlogTypesController::class, 'index'])->name('blog-type');
     Route::post('/blog-types/store', [BlogTypesController::class, 'store'])->name('blog-type.store');
     Route::post('/blog-types/edit/{id}', [BlogTypesController::class, 'edit'])->name('blog-type.edit');
     Route::post('/blog-types/delete/{id}', [BlogTypesController::class, 'destroy'])->name('blog-type.delete');
 
     Route::get('/blog', [BlogController::class, 'index'])->name('blog');
     Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
+    Route::post('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+    Route::post('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
 });
 
 
