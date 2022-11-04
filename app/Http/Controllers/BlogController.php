@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogTypes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
@@ -14,7 +16,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('blog.index');
+        $data = [];
+        $data['category'] = BlogTypes::pluck("title", 'id');
+        return view('blog.index', $data);
     }
 
     /**
@@ -35,7 +39,22 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'title'    => 'required',
+            'description' => 'required',
+            'photo' => 'required',
+            'blog_category_id' => 'required'
+        ], [
+            'blog_category_id.required' => "Blog category is required"
+        ]);
+        $data = [];
+        $data["status"] = false;
+        if ($validator->fails()) {
+            $data["errors"] = $validator->errors();
+            return response()->json($data);
+        } else {
+        }
     }
 
     /**

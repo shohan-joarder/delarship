@@ -143,6 +143,8 @@
 <script src="{{asset('app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js')}}"></script>
+<script src="{{asset('assets/customs/customs.js')}}"></script>
+
 <script>
     $(document).ready(function () {
 
@@ -151,129 +153,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        let lodingButton = '<button class="btn btn-primary w-100" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class="">Loading...</span></button>';
-        $(document).on("submit","#blogTypeFrom",function(e){
-            e.preventDefault();
-            $(".errors").html('');
-            let submitButton = $(".submitButton").html();
-            $.ajax({
-                url : $(this).attr("action"),
-                type : 'POST',
-                data : $("#blogTypeFrom").serialize(),
-                beforeSend : function(){
-                    $(".submitButton").html(lodingButton);
-                },
-                success : function(response){
-                    const {status, message,errors} = response;
-                    if(status == false){
-                        if(message){
-                            Swal.fire({
-                                icon: 'error',
-                                title: `${message}`,
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        }
-
-                        if(errors){
-                            let errorsArr = Object.entries(errors);
-                            for (let index = 0; index < errorsArr.length; index++) {
-                                $(".error_"+errorsArr[index][0]).html(errorsArr[index][1][0]);
-                            }
-                        }
-                    }
-                    if(status == true){
-                        Swal.fire({
-                            // position: 'top-end',
-                            icon: 'success',
-                            title: `${message}`,
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(()=>{
-                            t.draw();
-                            $('#blogTypeFrom')[0].reset();
-                            $("#blogCategoryModal").modal("hide");
-                        }
-                        )
-
-                    }
-                },
-                complete : function(data){
-                    $( ".submitButton" ).html(submitButton);
-                }
-            });
-        });
-
-        $(document).on("click",".editData",function(e){
-            $(".modaltitle").html("Update blog type");
-            $(".buttonTitle").html("Update");
-            let url = $(this).attr('data-url');
-            $.ajax({
-                url : url,
-                type : 'POST',
-                beforeSend : function(){
-                    //$(".submitButton").html(lodingButton);
-                },
-                success : function(response){
-                    const {id,title,sort_order} = response;
-                    $("#dataId").val(id);
-                    $(".title").val(title);
-                    $(".sortOrder").val(sort_order);
-                    $("#blogCategoryModal").modal("show");
-                },
-                complete : function(data){
-                    //$( ".submitButton" ).html(submitButton);
-                }
-            })
-        });
-        $(document).on("click",".deleteData",function(e){
-            let url = $(this).attr('data-url');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "If Deleted, You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // console.log("Deleted");
-                        $.ajax({
-                            url : url,
-                            type : 'POST',
-                            beforeSend : function(){
-                                //$(".submitButton").html(lodingButton);
-                            },
-                            success : function(response){
-                                const {status,message} = response;
-                                if(status == true){
-                                    t.draw();
-                                }
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: `${message}`,
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-
-                            },
-                            complete : function(data){
-                                //$( ".submitButton" ).html(submitButton);
-                            }
-                        })
-                    }
-                })
-
-        });
-
-        $(document).on("click",".addNew",function(){
-            $('#blogTypeFrom')[0].reset();
-            $("#dataId").val('');
-            $(".modaltitle").html("Create new blog type");
-            $(".buttonTitle").html("Save");
-        });
-
         var t = $('#blogTypeTable').DataTable({
                     "scrollX":false,
                     "processing": true,
@@ -320,6 +199,52 @@
                     $(this).html(n-1);
             });
         });
+
+        $(document).on("submit", "#blogTypeFrom", function (e) {
+            e.preventDefault();
+            $(".errors").html("");
+            formSubmit("blogTypeFrom",$(this).attr("action"),"blogCategoryModal",t)
+
+        })
+
+        $(document).on("click",".editData",function(e){
+            $(".modaltitle").html("Update blog type");
+            $(".buttonTitle").html("Update");
+            let url = $(this).attr('data-url');
+            $.ajax({
+                url : url,
+                type : 'POST',
+                beforeSend : function(){
+                    //$(".submitButton").html(lodingButton);
+                },
+                success : function(response){
+                    const {id,title,sort_order} = response;
+                    $("#dataId").val(id);
+                    $(".title").val(title);
+                    $(".sortOrder").val(sort_order);
+                    $("#blogCategoryModal").modal("show");
+                },
+                complete : function(data){
+                    //$( ".submitButton" ).html(submitButton);
+                }
+            })
+        });
+
+        $(document).on("click",".deleteData",function(e){
+            let url = $(this).attr('data-url');
+            deleteData(url,t);
+
+
+        });
+
+        $(document).on("click",".addNew",function(){
+            $('#blogTypeFrom')[0].reset();
+            $("#dataId").val('');
+            $(".modaltitle").html("Create new blog type");
+            $(".buttonTitle").html("Save");
+        });
+
+
 
     });
 </script>

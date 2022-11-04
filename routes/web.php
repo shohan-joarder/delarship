@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/blog-types/delete/{id}', [BlogTypesController::class, 'destroy'])->name('blog-type.delete');
 
     Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+    Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
 });
 
 
