@@ -428,9 +428,12 @@
                     </ul>
                 </li>
                 */?>
-                <li class="nav-item {{\Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span></a>
+                <li class="nav-item {{\Route::currentRouteName() == "blog-page" || \Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span></a>
                     <ul class="menu-content">
 
+                        <li class="{{\Route::currentRouteName() == "blog-page"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Page</span></a>
+                        </li>
                         <li class="{{\Route::currentRouteName() == "blog"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('blog')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs List</span></a>
                         </li>

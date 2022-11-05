@@ -127,7 +127,7 @@
                     @csrf
                     <input type="hidden" id="dataId" name="id">
                     <div class="row">
-                        <div class="col-4">
+                        {{-- <div class="col-4">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                 <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
@@ -139,8 +139,9 @@
                         </div>
                         <div class="col-7">
                             <div id="holder" style=""></div>
-                        </div>
-                        <span class="text-danger text-xs errors error_photo"></span>
+                        </div> --}}
+
+
                         <div class="col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="first-name-vertical">Title</label>
@@ -164,6 +165,19 @@
                                 <span class="text-danger text-xs errors error_blog_category_id"></span>
                             </div>
                         </div>
+
+                        <div class="preView text-center" id="holder">
+                            <img class="img-container img-fluid" style="height: 10rem;" src="{{asset("common/image-placeholder.png")}}">
+                        </div>
+                        <div class="input-group d-flex justify-content-center pt-2">
+                            <span class="input-group-btn">
+                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                <i class="fa fa-picture-o"></i> Choose image
+                            </a>
+                            </span>
+                            <input id="thumbnail" class="form-control d-none" type="text" value="{{@$allData->main_baner?@$allData->main_baner:''}}" name="photo">
+                        </div>
+                        <span class="text-danger text-xs errors error_photo"></span><br>
 
                         <div class="col-12 d-flex justify-content-end">
                             <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
@@ -193,6 +207,7 @@
 {{-- <script src="{{asset('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')}}"></script> --}}
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script src="{{asset('assets/customs/customs.js')}}"></script>
+<script src="{{asset('assets/customs/stand-alon.js')}}"></script>
 <script>
   var options = {
     filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -265,43 +280,6 @@ $(document).ready(function () {
 
     $(document).ready(function () {
         CKEDITOR.replace('description', options);
-        (function( $ ){
-
-            $.fn.filemanager = function(type, options) {
-            type = type || 'file';
-
-            this.on('click', function(e) {
-                var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
-                var target_input = $('#' + $(this).data('input'));
-                var target_preview = $('#' + $(this).data('preview'));
-                window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
-                window.SetUrl = function (items) {
-                var file_path = items.map(function (item) {
-                    return item.url;
-                }).join(',');
-
-                // set the value of the desired input to image url
-                target_input.val('').val(file_path).trigger('change');
-
-                // clear previous preview
-                target_preview.html('');
-
-                // set or change the preview image src
-                items.forEach(function (item) {
-                    target_preview.append(
-                    $('<img class="img-container img-fluid">').css('height', '10rem').attr('src', item.thumb_url)
-                    );
-                });
-
-                // trigger change event
-                target_preview.trigger('change');
-                };
-                return false;
-            });
-            }
-
-        })(jQuery);
-
         $('#lfm').filemanager('file');
 
     });
@@ -351,7 +329,7 @@ $(document).ready(function () {
         $('#blogFrom')[0].reset();
         $("#dataId").val('');
         $("#description").html("");
-        $("#holder").html("");
+        // $("#holder").html("");
         $("#thumbnail").val("");
         $(".modaltitle").html("Create blog");
         $(".buttonTitle").html("Save");

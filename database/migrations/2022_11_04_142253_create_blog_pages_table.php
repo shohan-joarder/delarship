@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('blog_pages', function (Blueprint $table) {
             $table->id();
+            $table->string('main_baner')->nullable();;
+            $table->string('main_baner_title_1')->nullable();;
+            $table->string('main_baner_title_2')->nullable();;
+            $table->string('middle_banner')->nullable();;
+            $table->string('middle_banner_content_1')->nullable();;
+            $table->string('middle_banner_content_2')->nullable();;
+            $table->string('bottom_banner')->nullable();;
+            $table->string('bottom_banner_content_1')->nullable();;
+            $table->string('bottom_banner_content_2')->nullable();;
+            $table->longText('blog_page_meta')->nullable();
             $table->timestamps();
         });
     }

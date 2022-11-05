@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BlogPageController;
 use App\Http\Controllers\BlogTypesController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,12 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', function () {
-        return view('welcome');
-    });
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::get('/home', [DashboardController::class, 'index'])->name('home');
+    // Route::get('/home', function () {
+    //     return view('welcome');
+    // });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
     Route::get('/blog-type', [BlogTypesController::class, 'index'])->name('blog-type');
     Route::post('/blog-types/store', [BlogTypesController::class, 'store'])->name('blog-type.store');
@@ -32,6 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
     Route::post('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::post('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
+
+    //blog page
+    Route::get('blog-page', [BlogPageController::class, 'index'])->name('blog-page');
+    Route::post('blog-page/store', [BlogPageController::class, 'store'])->name('blog-page.store');
 });
 
 

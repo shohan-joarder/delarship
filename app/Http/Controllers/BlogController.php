@@ -105,13 +105,14 @@ class BlogController extends Controller
             $photoArr = explode('/storage', $photo);
             $photoData = 'storage' . $photoArr[1];
             $validData["photo"] = $photoData;
-            $validData["created_by"] = auth()->user()->id;
             if ($request->id) {
+                $validData["updated_by"] = auth()->user()->id;
                 Blog::find($request->id)->update($validData);
                 $data["status"] = true;
                 $data["message"] = "Blog updated successfully";
                 return response()->json($data);
             } else {
+                $validData["created_by"] = auth()->user()->id;
                 Blog::create($validData);
                 $data["status"] = true;
                 $data["message"] = "Blog added successfully";

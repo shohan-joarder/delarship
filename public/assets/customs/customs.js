@@ -1,7 +1,7 @@
 var lodingButton =
     '<button class="btn btn-primary w-100" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <span class="">Loading...</span></button>';
 
-function formSubmit(formId, url, modalId, dataTable) {
+function formSubmit(formId, url, modalId = "", dataTable = "") {
     let submitButton = $(".submitButton").html();
     $.ajax({
         url: url,
@@ -39,9 +39,13 @@ function formSubmit(formId, url, modalId, dataTable) {
                     showConfirmButton: false,
                     timer: 1500,
                 }).then(() => {
-                    dataTable.draw();
-                    $("#" + formId)[0].reset();
-                    $("#" + modalId).modal("hide");
+                    if (dataTable) {
+                        dataTable.draw();
+                    }
+                    if (modalId) {
+                        $("#" + formId)[0].reset();
+                        $("#" + modalId).modal("hide");
+                    }
                 });
             }
         },
