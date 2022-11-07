@@ -428,6 +428,57 @@
                     </ul>
                 </li>
                 */?>
+                <li class="nav-item {{\Route::currentRouteName() == "main-banner" || \Route::currentRouteName() == "how-it-works" || \Route::currentRouteName() == "popular-vanues" || \Route::currentRouteName() == "weeding-category" || \Route::currentRouteName() == "real-weeding" || \Route::currentRouteName() == "inhouse-service" || \Route::currentRouteName() == "gallery-to-look" || \Route::currentRouteName() == "middle-banner"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Home</span></a>
+                    <ul class="menu-content">
+                        <li class="{{\Route::currentRouteName() == 'main-banner'? 'open':''}}">
+                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Banner</span></a>
+                            <ul class="menu-content">
+                                <li class="{{\Route::currentRouteName() == 'main-banner'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('main-banner')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Main Banner</span></a>
+                                </li>
+                                <li class="{{\Route::currentRouteName() == 'middle-banner'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('middle-banner')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Middle Banner</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == 'how-it-works'? 'open':''}}">
+                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Work process</span></a>
+                            <ul class="menu-content">
+                                <li class="{{\Route::currentRouteName() == 'how-it-works'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('how-it-works')}}"><span class="menu-item text-truncate" data-i18n="Third Level">How it works</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == 'popular-vanues'? 'open':''}}">
+                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Vanues</span></a>
+                            <ul class="menu-content">
+                                <li class="{{\Route::currentRouteName() == 'popular-vanues'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('popular-vanues')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Popular vanues</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == 'weeding-category' || \Route::currentRouteName() == 'real-weeding'? 'open':''}}">
+                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Weeding</span></a>
+                            <ul class="menu-content">
+                                <li class="{{\Route::currentRouteName() == 'weeding-category'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('weeding-category')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Weeding category</span></a>
+                                </li>
+                                <li class="{{\Route::currentRouteName() == 'real-weeding'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('real-weeding')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Real Weeding</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == 'inhouse-service' ? 'open':''}}">
+                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Service</span></a>
+                            <ul class="menu-content">
+                                <li class="{{\Route::currentRouteName() == 'inhouse-service'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('inhouse-service')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Inhouse service</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == 'gallery-to-look' ? 'open':''}}">
+                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Gallery</span></a>
+                            <ul class="menu-content">
+                                <li class="{{\Route::currentRouteName() == 'gallery-to-look'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('gallery-to-look')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Gallery to look</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item {{\Route::currentRouteName() == "blog-page" || \Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span></a>
                     <ul class="menu-content">
 
@@ -440,27 +491,9 @@
                         <li class="{{\Route::currentRouteName() == "blog-type"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('blog-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Types</span></a>
                         </li>
-                        <li>
-                            <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blog</span></a>
-                            <ul class="menu-content">
-                                <li><a class="d-flex align-items-center" href="#"><span class="menu-item text-truncate" data-i18n="Third Level">Third Level 3.1</span></a>
-                                </li>
-                                <li><a class="d-flex align-items-center" href="#"><span class="menu-item text-truncate" data-i18n="Third Level">Third Level 3.2</span></a>
-                                </li>
-                            </ul>
-                        </li>
+
                     </ul>
                 </li>
-
-                <?php /*
-                <li class="disabled nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="eye-off"></i><span class="menu-title text-truncate" data-i18n="Disabled Menu">Disabled Menu</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation" target="_blank"><i data-feather="folder"></i><span class="menu-title text-truncate" data-i18n="Documentation">Documentation</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="https://pixinvent.ticksy.com/" target="_blank"><i data-feather="life-buoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Raise Support</span></a>
-                </li>
-                */
-                ?>
 
             </ul>
         </div>

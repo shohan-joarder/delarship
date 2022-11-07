@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BlogTypes;
-use Illuminate\Http\Request;
+use App\Models\HowItWorks;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
-class BlogTypesController extends Controller
+class HowItWorksController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $info = BlogTypes::where('id', '!=', '');
+            $info = HowItWorks::where('id', '!=', '');
 
             if ($request->search['value'] != '') {
                 $info = $info->where(function ($query) use ($request) {
                     $query->orWhere('title', 'LIKE', '%' . $request->search['value'] . '%')
-                        ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%');
-                    // ->orWhere('order_date', 'LIKE', '%' . date("Y-m-d", strtotime($request->search['value'])) . '%')
-                    // ->orWhere('payment_status', 'LIKE', '%' . $request->search['value'] . '%')
-                    // ->orWhere('status', 'LIKE', '%' . $request->search['value'] . '%');
+                        ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%')
+                        ->orWhere('description', 'LIKE', '%' . $request->search['value'] . '%');
                 });
             }
 
@@ -36,12 +34,13 @@ class BlogTypesController extends Controller
             foreach ($alldata as $row) :
                 $data[] = [
                     'id' => $row->id,
-                    'edit' => route('blog-type.edit', $row->id),
-                    'delete' => route('blog-type.delete', $row->id),
                     'title' => $row->title,
+                    'description' => $row->description,
                     'sort_order' => $row->sort_order,
                     'status' => $row->status,
                     'updated_at' => $row->updated_at,
+                    'edit' => route('how-it-works.edit', $row->id),
+                    'delete' => route('how-it-works.delete', $row->id),
                 ];
             endforeach;
             $this->return = [
@@ -52,17 +51,17 @@ class BlogTypesController extends Controller
             ];
             return response()->json($this->return);
         }
-
         $data = [];
-        $data["title"] = "Blog Type";
-        return view('blog-section.blogTypes.index', $data);
+        $data["title"] = "How it works";
+        return view('home-section.how-it-works-section.index');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title'    => 'required',
-            'sort_order' => 'required',
+            'description' => 'required',
+            'sort_order' => $request->id ? 'required' : 'required|unique:how_it_works'
         ]);
         $data = [];
         $data["status"] = false;
@@ -70,16 +69,16 @@ class BlogTypesController extends Controller
             $data["errors"] = $validator->errors();
             return response()->json($data);
         } else {
+            $validData = $validator->validated();
             if ($request->id) {
-                if (BlogTypes::find($request->id)->update($validator->validated())) {
-                    $data["status"] = true;
-                    $data["message"] = "Blog types updated successfully";
-                    return response()->json($data);
-                }
-            } else {
-                BlogTypes::create($validator->validated());
+                HowItWorks::find($request->id)->update($validData);
                 $data["status"] = true;
-                $data["message"] = "Blog types added successfully";
+                $data["message"] = "Work step updated successfully";
+                return response()->json($data);
+            } else {
+                HowItWorks::create($validData);
+                $data["status"] = true;
+                $data["message"] = "Work step added successfully";
                 return response()->json($data);
             }
         }
@@ -87,14 +86,15 @@ class BlogTypesController extends Controller
 
     public function edit($id)
     {
-        $data = BlogTypes::find($id);
+        $data = HowItWorks::find($id);
+        $photo = asset($data->photo);
         return response()->json($data);
     }
 
     public function destroy($id)
     {
         if ($id) {
-            BlogTypes::find($id)->delete();
+            HowItWorks::find($id)->delete();
             return response()->json(["status" => true, "message" => "Deleted successfully"]);
         } else {
             return response()->json(["status" => false, "message" => "Something went wrong"]);

@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BlogTypes;
+use App\Models\PopularVanues;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class BlogTypesController extends Controller
+class PopularVanuesController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $info = BlogTypes::where('id', '!=', '');
+            $info = PopularVanues::where('id', '!=', '');
 
             if ($request->search['value'] != '') {
                 $info = $info->where(function ($query) use ($request) {
                     $query->orWhere('title', 'LIKE', '%' . $request->search['value'] . '%')
-                        ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%');
-                    // ->orWhere('order_date', 'LIKE', '%' . date("Y-m-d", strtotime($request->search['value'])) . '%')
-                    // ->orWhere('payment_status', 'LIKE', '%' . $request->search['value'] . '%')
-                    // ->orWhere('status', 'LIKE', '%' . $request->search['value'] . '%');
+                        ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%')
+                        ->orWhere('location', 'LIKE', '%' . $request->search['value'] . '%');
                 });
             }
 
@@ -36,12 +34,14 @@ class BlogTypesController extends Controller
             foreach ($alldata as $row) :
                 $data[] = [
                     'id' => $row->id,
-                    'edit' => route('blog-type.edit', $row->id),
-                    'delete' => route('blog-type.delete', $row->id),
                     'title' => $row->title,
+                    'description' => $row->description,
+                    'location' => $row->location,
                     'sort_order' => $row->sort_order,
-                    'status' => $row->status,
+                    'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
                     'updated_at' => $row->updated_at,
+                    'edit' => route('popular-vanues.edit', $row->id),
+                    'delete' => route('popular-vanues.delete', $row->id),
                 ];
             endforeach;
             $this->return = [
@@ -52,17 +52,19 @@ class BlogTypesController extends Controller
             ];
             return response()->json($this->return);
         }
-
         $data = [];
-        $data["title"] = "Blog Type";
-        return view('blog-section.blogTypes.index', $data);
+        $data["title"] = "Popular Vanues";
+        return view('home-section.popular-vanue.index', $data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title'    => 'required',
-            'sort_order' => 'required',
+            'description' => 'required',
+            'location' => 'required',
+            'photo' => 'required',
+            'sort_order' => $request->id ? 'required' : 'required|unique:popular_vanues'
         ]);
         $data = [];
         $data["status"] = false;
@@ -70,16 +72,20 @@ class BlogTypesController extends Controller
             $data["errors"] = $validator->errors();
             return response()->json($data);
         } else {
+            $validData = $validator->validated();
+            $photo = $request->photo;
+            $photoArr = explode('/storage', $photo);
+            $photoData = 'storage' . $photoArr[1];
+            $validData["photo"] = $photoData;
             if ($request->id) {
-                if (BlogTypes::find($request->id)->update($validator->validated())) {
-                    $data["status"] = true;
-                    $data["message"] = "Blog types updated successfully";
-                    return response()->json($data);
-                }
-            } else {
-                BlogTypes::create($validator->validated());
+                PopularVanues::find($request->id)->update($validData);
                 $data["status"] = true;
-                $data["message"] = "Blog types added successfully";
+                $data["message"] = "Popular vanue updated successfully";
+                return response()->json($data);
+            } else {
+                PopularVanues::create($validData);
+                $data["status"] = true;
+                $data["message"] = "Popular vanue added successfully";
                 return response()->json($data);
             }
         }
@@ -87,14 +93,15 @@ class BlogTypesController extends Controller
 
     public function edit($id)
     {
-        $data = BlogTypes::find($id);
-        return response()->json($data);
+        $data = PopularVanues::find($id);
+        $photo = asset($data->photo);
+        return response()->json(["data" => $data, "photo" => $photo]);
     }
 
     public function destroy($id)
     {
         if ($id) {
-            BlogTypes::find($id)->delete();
+            PopularVanues::find($id)->delete();
             return response()->json(["status" => true, "message" => "Deleted successfully"]);
         } else {
             return response()->json(["status" => false, "message" => "Something went wrong"]);

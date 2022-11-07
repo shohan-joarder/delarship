@@ -30,27 +30,6 @@
     </div>
 </div>
 
-{{-- <div class="input-group">
-    <span class="input-group-btn">
-      <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-        <i class="fa fa-picture-o"></i> Choose
-      </a>
-    </span>
-    <input id="thumbnail" class="form-control" type="text" name="filepath">
-  </div>
-  <div id="holder" style="margin-top:15px;max-height:100px;"></div> --}}
-
-{{-- <div class="input-group">
-    <span class="input-group-btn">
-      <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
-        <i class="fa fa-picture-o"></i> Choose
-      </a>
-    </span>
-    <input id="thumbnail2" class="form-control" type="text" name="filepath">
-</div>
-
-<div id="holder2" style="margin-top:15px;max-height:100px;"></div> --}}
-
 
   <!-- Responsive Datatable -->
   <section id="responsive-datatable">
@@ -127,20 +106,6 @@
                     @csrf
                     <input type="hidden" id="dataId" name="id">
                     <div class="row">
-                        {{-- <div class="col-4">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                    <i class="fa fa-picture-o"></i> Choose image
-                                </a>
-                                </span>
-                                <input id="thumbnail" class="form-control d-none" type="text" name="photo">
-                            </div>
-                        </div>
-                        <div class="col-7">
-                            <div id="holder" style=""></div>
-                        </div> --}}
-
 
                         <div class="col-12">
                             <div class="mb-1">
@@ -175,7 +140,7 @@
                                 <i class="fa fa-picture-o"></i> Choose image
                             </a>
                             </span>
-                            <input id="thumbnail" class="form-control d-none" type="text" value="{{@$allData->main_baner?@$allData->main_baner:''}}" name="photo">
+                            <input id="thumbnail" class="form-control d-none" type="text" value="" name="photo">
                         </div>
                         <span class="text-danger text-xs errors error_photo"></span><br>
 

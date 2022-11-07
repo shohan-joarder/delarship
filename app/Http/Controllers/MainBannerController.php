@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BlogTypes;
+use App\Models\MainBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class BlogTypesController extends Controller
+class MainBannerController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $info = BlogTypes::where('id', '!=', '');
+            $info = MainBanner::where('id', '!=', '');
 
             if ($request->search['value'] != '') {
                 $info = $info->where(function ($query) use ($request) {
                     $query->orWhere('title', 'LIKE', '%' . $request->search['value'] . '%')
-                        ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%');
-                    // ->orWhere('order_date', 'LIKE', '%' . date("Y-m-d", strtotime($request->search['value'])) . '%')
-                    // ->orWhere('payment_status', 'LIKE', '%' . $request->search['value'] . '%')
-                    // ->orWhere('status', 'LIKE', '%' . $request->search['value'] . '%');
+                        ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%')
+                        ->orWhere('sub_title', 'LIKE', '%' . $request->search['value'] . '%');
                 });
             }
 
@@ -36,12 +34,14 @@ class BlogTypesController extends Controller
             foreach ($alldata as $row) :
                 $data[] = [
                     'id' => $row->id,
-                    'edit' => route('blog-type.edit', $row->id),
-                    'delete' => route('blog-type.delete', $row->id),
                     'title' => $row->title,
+                    'sub_title' => $row->sub_title,
                     'sort_order' => $row->sort_order,
                     'status' => $row->status,
+                    'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
                     'updated_at' => $row->updated_at,
+                    'edit' => route('main-banner.edit', $row->id),
+                    'delete' => route('main-banner.delete', $row->id),
                 ];
             endforeach;
             $this->return = [
@@ -52,17 +52,18 @@ class BlogTypesController extends Controller
             ];
             return response()->json($this->return);
         }
-
         $data = [];
-        $data["title"] = "Blog Type";
-        return view('blog-section.blogTypes.index', $data);
+        $data["title"] = "Home Banner";
+        return view('home-section.main-banner.index', $data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title'    => 'required',
-            'sort_order' => 'required',
+            'sub_title' => 'required',
+            'photo' => 'required',
+            'sort_order' => $request->id ? 'required' : 'required|unique:main_banners'
         ]);
         $data = [];
         $data["status"] = false;
@@ -70,16 +71,20 @@ class BlogTypesController extends Controller
             $data["errors"] = $validator->errors();
             return response()->json($data);
         } else {
+            $validData = $validator->validated();
+            $photo = $request->photo;
+            $photoArr = explode('/storage', $photo);
+            $photoData = 'storage' . $photoArr[1];
+            $validData["photo"] = $photoData;
             if ($request->id) {
-                if (BlogTypes::find($request->id)->update($validator->validated())) {
-                    $data["status"] = true;
-                    $data["message"] = "Blog types updated successfully";
-                    return response()->json($data);
-                }
-            } else {
-                BlogTypes::create($validator->validated());
+                MainBanner::find($request->id)->update($validData);
                 $data["status"] = true;
-                $data["message"] = "Blog types added successfully";
+                $data["message"] = "Banner updated successfully";
+                return response()->json($data);
+            } else {
+                MainBanner::create($validData);
+                $data["status"] = true;
+                $data["message"] = "Banner added successfully";
                 return response()->json($data);
             }
         }
@@ -87,14 +92,15 @@ class BlogTypesController extends Controller
 
     public function edit($id)
     {
-        $data = BlogTypes::find($id);
-        return response()->json($data);
+        $data = MainBanner::find($id);
+        $photo = asset($data->photo);
+        return response()->json(["data" => $data, "photo" => $photo]);
     }
 
     public function destroy($id)
     {
         if ($id) {
-            BlogTypes::find($id)->delete();
+            MainBanner::find($id)->delete();
             return response()->json(["status" => true, "message" => "Deleted successfully"]);
         } else {
             return response()->json(["status" => false, "message" => "Something went wrong"]);

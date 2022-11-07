@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -23,9 +18,6 @@ class BlogController extends Controller
                 $info = $info->where(function ($query) use ($request) {
                     $query->orWhere('title', 'LIKE', '%' . $request->search['value'] . '%')
                         ->orWhere('description', 'LIKE', '%' . $request->search['value'] . '%');
-                    // ->orWhere('order_date', 'LIKE', '%' . date("Y-m-d", strtotime($request->search['value'])) . '%')
-                    // ->orWhere('payment_status', 'LIKE', '%' . $request->search['value'] . '%')
-                    // ->orWhere('status', 'LIKE', '%' . $request->search['value'] . '%');
                 });
             }
 
@@ -39,13 +31,13 @@ class BlogController extends Controller
             $count = $info->count();
             $data = [];
             $alldata = $info->with('blogType')->offset($request->start)->limit($request->length)->get();
-            // dd($alldata);
+
             foreach ($alldata as $row) :
                 $data[] = [
                     'id' => $row->id,
                     'type' => $row->blogType->title,
                     'description' => $row->description,
-                    'image' => '<img class="w-50" src="' . asset("$row->photo") . '" alt="">',
+                    'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
                     'edit' => route('blog.edit', $row->id),
                     'delete' => route('blog.delete', $row->id),
                     'title' => $row->title,
@@ -65,25 +57,9 @@ class BlogController extends Controller
         $data = [];
         $data["title"] = "Blog";
         $data['category'] = BlogTypes::pluck("title", 'id');
-        return view('blog.index', $data);
+        return view('blog-section.blog.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -122,23 +98,6 @@ class BlogController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Blog $blog)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = Blog::find($id);
@@ -146,24 +105,6 @@ class BlogController extends Controller
         return response()->json(["data" => $data, "photo" => $photo]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Blog $blog)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         if ($id) {
