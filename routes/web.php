@@ -76,12 +76,12 @@ Route::group(['middleware' => 'auth'], function () {
     //blog routes
     Route::get('/blog', [BlogController::class, 'index'])->name('blog');
     Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
-    Route::post('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+    // Route::post('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+    Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::post('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
 
-    Route::get('blog/create', function () {
-        return view('blog-section.blog.create');
-    });
+    Route::get('blog/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('blog/save', [BlogController::class, 'save'])->name('blog.save');
 
     //blog page routes
     Route::get('blog-page', [BlogPageController::class, 'index'])->name('blog-page');

@@ -12,16 +12,23 @@ class Blog extends Model
     use SoftDeletes;
     protected $fillable = [
         "blog_category_id",
+        "auther_id",
         "created_by",
         "updated_by",
         "title",
+        "slug",
         "description",
         "photo",
-        "status"
+        "status",
+        "tags",
+        "featured",
+        "comments"
     ];
 
     public function blogType()
     {
         return $this->hasOne(BlogTypes::class, 'id', 'blog_category_id');
     }
+
+    public $statuslist = [1 => 'Published', 2 => 'Pending', 2 => 'Draft'];
 }

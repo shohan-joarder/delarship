@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Blog;
+use App\Models\BlogBlogCategory;
 use App\Models\BlogTypes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Closure;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -98,11 +102,27 @@ class BlogController extends Controller
         }
     }
 
+    public function create()
+    {
+        $data = [];
+        $data["title"] = "Create new blog";
+        $data["model"] = new Blog();
+        $data["categoty"] = BlogTypes::pluck('title', 'id');
+        $data["authors"] = Author::pluck('name', 'id');
+        $data["blogCatagories"] = [];
+        return view('blog-section.blog.create', $data);
+    }
+
     public function edit($id)
     {
-        $data = Blog::find($id);
-        $photo = asset($data->photo);
-        return response()->json(["data" => $data, "photo" => $photo]);
+        $data = [];
+        $data["title"] = "Update blog";
+        $data["model"] = Blog::find($id);
+        $data["categoty"] = BlogTypes::pluck('title', 'id');
+        $data["authors"] = Author::pluck('name', 'id');
+        $data["blogCatagories"]  = json_decode($data["model"]->blog_category_id);
+        return view('blog-section.blog.create', $data);
+        // return response()->json(["data" => $data, "photo" => $photo]);
     }
 
     public function destroy($id)
@@ -113,5 +133,68 @@ class BlogController extends Controller
         } else {
             return response()->json(["status" => false, "message" => "Something went wrong"]);
         }
+    }
+
+    public function save(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title'    => 'required',
+            'description' => 'required',
+            'photo' => 'required',
+            'status' => 'required',
+            'tags' => 'required',
+            // 'featured' => 'boolean',
+            // 'comments' => 'boolean',
+            'auther_id' => 'required',
+            'blog_category_id' => 'required'
+        ], [
+            'blog_category_id.required' => "Blog category is required",
+            'auther_id.required' => "Auther is required"
+        ]);
+        $data = [];
+        $data["status"] = false;
+        if ($validator->fails()) {
+            $data["errors"] = $validator->errors();
+
+            return response()->json($data);
+        } else {
+            // dd($request->featured);
+            $validData = $validator->validated();
+            $validData["featured"] = ($request->featured == "true") ? 1 : 0;
+            $validData["comments"] = ($request->comments == "true") ? 1 : 0;
+
+            $photo = $request->photo;
+            $photoArr = explode('/storage', $photo);
+            $photoData = 'storage' . $photoArr[1];
+            $validData["photo"] = $photoData;
+            $validData["blog_category_id"] = json_encode($request->blog_category_id);
+
+            DB::beginTransaction();
+
+            if ($request->id) {
+                $blogId = $request->id;
+                Blog::find($blogId)->update($validData);
+                BlogBlogCategory::where('blog_id', $blogId)->delete();
+                $data["message"] = "Blog updated successfully";
+            } else {
+                $storeBlog = Blog::create($validData);
+                $blogId = $storeBlog->id;
+                $data["message"] = "Blog added successfully";
+            }
+            if ($blogId) {
+                // insert data into prevot table
+                foreach ($request->blog_category_id as $key => $value) {
+                    BlogBlogCategory::create(['blog_id' => $blogId, 'blog_catogory_id' => $value]);
+                }
+
+                DB::commit();
+                $data["status"] = true;
+                return response()->json($data);
+            } else {
+                DB::rollback();
+                return response()->json(['status' => false, 'message' => "Something went wrong"]);
+            }
+        }
+        // dd($request->all());
     }
 }

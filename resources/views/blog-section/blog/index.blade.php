@@ -25,7 +25,7 @@
     </div>
     <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
         <div class="mb-1 breadcrumb-right">
-            <button type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect addNew" data-bs-toggle="modal" data-bs-target="#blogModal"><i data-feather="plus" class="fw-bold"></i> Add New</button>
+            <a href="{{route('blog.create')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect"><i data-feather="plus" class="fw-bold"></i> Add New</a>
         </div>
     </div>
 </div>
@@ -136,9 +136,9 @@
                         </div>
                         <div class="input-group d-flex justify-content-center pt-2">
                             <span class="input-group-btn">
-                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                <i class="fa fa-picture-o"></i> Choose image
-                            </a>
+                                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                    <i class="fa fa-picture-o"></i> Choose image
+                                </a>
                             </span>
                             <input id="thumbnail" class="form-control d-none" type="text" value="" name="photo">
                         </div>
