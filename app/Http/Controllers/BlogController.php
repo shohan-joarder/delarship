@@ -36,16 +36,34 @@ class BlogController extends Controller
             $data = [];
             $alldata = $info->with('blogType')->offset($request->start)->limit($request->length)->get();
 
+
             foreach ($alldata as $row) :
+                $categoty = '';
+                foreach ($row->blogType as $key => $value) {
+                    $categoty .= $value->title . ", ";
+                };
+                $tags = '';
+                $tagsArr = json_decode($row->tags);
+                foreach ($tagsArr as $k => $tag) {
+                    $tags .= $tag->value . ", ";
+                }
+
+                $categoty =  substr($categoty, 0, -2);
+                $tags = substr($tags, 0, -2);
+
+                $description = (strlen($row->description) > 50) ? substr($row->description, 0, 50) . "...."  : $row->description;
+
                 $data[] = [
                     'id' => $row->id,
-                    'type' => $row->blogType->title,
-                    'description' => $row->description,
+                    'type' => $categoty,
+                    'description' => $description,
                     'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
                     'edit' => route('blog.edit', $row->id),
                     'delete' => route('blog.delete', $row->id),
                     'title' => $row->title,
+                    'tags' => $tags,
                     'sort_order' => $row->sort_order,
+                    'created_at' => $row->created_at->diffForHumans(),
                     'status' => $row->status,
                     'updated_at' => $row->updated_at,
                 ];
@@ -170,7 +188,6 @@ class BlogController extends Controller
             $validData["blog_category_id"] = json_encode($request->blog_category_id);
 
             DB::beginTransaction();
-
             if ($request->id) {
                 $blogId = $request->id;
                 Blog::find($blogId)->update($validData);
@@ -184,7 +201,7 @@ class BlogController extends Controller
             if ($blogId) {
                 // insert data into prevot table
                 foreach ($request->blog_category_id as $key => $value) {
-                    BlogBlogCategory::create(['blog_id' => $blogId, 'blog_catogory_id' => $value]);
+                    BlogBlogCategory::create(['blog_id' => $blogId, 'blog_types_id' => $value]);
                 }
 
                 DB::commit();

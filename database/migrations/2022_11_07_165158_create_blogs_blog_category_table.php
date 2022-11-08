@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blogs_blog_category', function (Blueprint $table) {
+        Schema::create('blog_blog_types', function (Blueprint $table) {
             $table->id();
             $table->integer('blog_id');
-            $table->integer('blog_catogory_id');
+            $table->integer('blog_types_id');
             $table->timestamps();
         });
     }

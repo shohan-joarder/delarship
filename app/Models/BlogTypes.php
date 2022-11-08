@@ -13,4 +13,9 @@ class BlogTypes extends Model
         "status",
         "sort_order"
     ];
+
+    public function Blog()
+    {
+        return $this->belongstoMany(Blog::class);
+    }
 }

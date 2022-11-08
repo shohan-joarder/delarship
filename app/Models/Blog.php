@@ -27,7 +27,7 @@ class Blog extends Model
 
     public function blogType()
     {
-        return $this->hasOne(BlogTypes::class, 'id', 'blog_category_id');
+        return $this->belongstoMany(BlogTypes::class);
     }
 
     public $statuslist = [1 => 'Published', 2 => 'Pending', 2 => 'Draft'];

@@ -216,6 +216,7 @@
                 let comments = $('#customSwitch2').prop('checked');
                 let description = $('.ql-editor').html();
                 let photo = $('input[name="photo"]').val();
+                let id = $('input[name="id"]').val();
 
                 $.ajax({
                     url: url,
@@ -229,7 +230,8 @@
                             featured,
                             comments,
                             description,
-                            photo
+                            photo,
+                            id
                         },
                     beforeSend: function () {
                         $(".submitButton").html(lodingButton);

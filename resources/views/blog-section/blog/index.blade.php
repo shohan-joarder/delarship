@@ -80,7 +80,9 @@
                                 <th class=>Image</th>
                                 <th>Title</th>
                                 <th>Type</th>
+                                <th>Tags</th>
                                 <th>Description</th>
+                                <th>Created</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -212,7 +214,13 @@ $(document).ready(function () {
                 "data": "type",
             },
             {
+                "data": "tags",
+            },
+            {
                 "data": "description",
+            },
+            {
+                "data": "created_at",
             },
             {
                 "data":"id",
@@ -220,7 +228,7 @@ $(document).ready(function () {
                 "searchable": false,
                 "className": 'action text-center',
                 render: function(data, type, row) {
-                        return `<button type="button" title="Edit" class="btn btn-primary btn-sm editData" data-url="${row.edit}"><i data-feather='edit-3'></i></button>
+                        return `<a type="button" title="Edit" class="btn btn-primary btn-sm editData" href="${row.edit}" data-url="${row.edit}"><i data-feather='edit-3'></i></a>
                         <button type="button" title="Delete" class="btn btn-danger btn-sm deleteData" data-url="${row.delete}"><i data-feather='trash' ></i></button>
                         `;
                 }
