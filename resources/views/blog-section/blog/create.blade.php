@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/editors/quill/quill.snow.css')}}">
 
 <div class="content-header row">
-    <div class="content-header-left col-md-9 col-12 mb-2">
+    <div class="content-header-left col-md-9 col-12 mb-1">
         <div class="row breadcrumbs-top">
             <div class="col-12">
                 <h2 class="content-header-title float-start mb-0">{{@$title}}</h2>
@@ -43,8 +43,11 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label" for="blog-edit-title">Title</label>
+                                    <div class="mb-1">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="form-label" for="blog-edit-title">Title</label>
+                                            <span class="title_remains">You have remains 150 character</span>
+                                        </div>
                                         <input type="text" id="blog-edit-title" class="form-control" value="{{$model->title}}" name="title" />
                                         <span class="text-danger text-xs errors error_title"></span><br>
                                     </div>
@@ -52,15 +55,26 @@
                                 </div>
 
                                 <div class="col-md-6 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <label class="form-label" for="blog-edit-category">Author</label>
                                         {{ Form::select('auther_id', $authors, $model->auther_id, array('class'=>' form-select', 'id'=>"", 'placeholder'=>'Please select author...')) }}
                                         <span class="text-danger text-xs errors error_auther_id"></span>
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 col-12">
+                                    <div class="mb-1">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="form-label" for="blog-edit-title">Short Description</label>
+                                            <span class="short_description_remains">You have remains 400 character</span>
+                                        </div>
+                                        <textarea class="form-control" name="short_description" id="" cols="30" rows="2">{!! $model->short_description !!}</textarea>
+                                        <span class="text-danger text-xs errors error_short_description"></span>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <label class="form-label" for="blog-edit-category">Category</label>
                                         {{ Form::select('blog_category_id', $categoty, $blogCatagories, array('class'=>'select2 form-select',  'id'=>"blog_category_id", 'multiple'=>'true')) }}
                                         <span class="text-danger text-xs errors error_blog_category_id"></span>
@@ -68,7 +82,7 @@
                                 </div>
 
                                 <div class="col-md-6 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <label class="form-label" for="blog-edit-status">Status</label>
                                         {{ Form::select('status', $model->statuslist, $model->status, array('class'=>'form-select', "id"=>"status", 'placeholder'=>'Please select status...')) }}
                                         <span class="text-danger text-xs errors error_status"></span><br>
@@ -77,36 +91,44 @@
                                 </div>
 
                                 <div class="col-md-6 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <label class="form-label" for="blog-edit-slug">Tags</label>
                                         <input type="text" class="form-control" name="tags" value="{{$model->tags}}" />
                                         <span class="text-danger text-xs errors error_tags"></span>
                                     </div>
-
                                 </div>
 
-                                <div class="col-md-6 col-12 ">
-                                    <div class="form-check form-switch">
-                                        <input type="checkbox" class="form-check-input" id="customSwitch1" name="featured"
-                                        @if($model->featured)
-                                        checked
-                                        @endif
-                                        >
-                                        <label class="form-check-label" for="customSwitch1">Is featured?</label>
+                                <div class="col-md-6 col-12 d-flex justify-content-between ">
+
+                                    <div>
+                                        <label class="form-label" for="blog-edit-title">Publish date</label>
+                                        <input type="date" id="fp-date" class="form-control flatpickr-date-time flatpickr-input" name="publish_date" value="{{$model->publish_date}}">
+                                        {{-- <input type="text" id="blog-edit-title" class="form-control" value="{{$model->title}}" name="title" /> --}}
                                     </div>
-                                    &nbsp;&nbsp;
-                                    <div class="form-check form-switch">
-                                        <input type="checkbox" class="form-check-input" id="customSwitch2" name="comments"
-                                        @if($model->comments)
-                                        checked
-                                        @endif
-                                        >
-                                        <label class="form-check-label" for="customSwitch2" >Comments</label>
+                                    <div>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1" name="featured"
+                                            @if($model->featured == true || $model->featured == '')
+                                            checked
+                                            @endif
+                                            >
+                                            <label class="form-check-label" for="customSwitch1">Is featured?</label>
+                                        </div>
+                                        &nbsp;&nbsp;
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch2" name="comments"
+                                            @if($model->comments == true || $model->comments == '')
+                                            checked
+                                            @endif
+                                            >
+                                            <label class="form-check-label" for="customSwitch2" >Comments</label>
+                                        </div>
                                     </div>
+
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <label class="form-label">Description</label>
                                         <div id="blog-editor-wrapper">
                                             <div id="blog-editor-container">
@@ -118,7 +140,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+
+                                <div class="col-12 mb-1">
                                     <div class="border rounded p-2">
                                         <h4 class="mb-1">Featured Image</h4>
                                         <div class="d-flex flex-column flex-md-row">
@@ -154,12 +177,71 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                      <button class="accordion-button btn-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        SEO Section
+                                      </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                      <div class="accordion-body">
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <div class="d-flex justify-content-between">
+                                                    <label class="form-label" for="blog-edit-title">Permalinks</label>
+                                                </div>
+                                                <a class="" href="{{env('APP_URL')}}/"><span class="permalinks"></span></a>
+                                                {{-- <input type="text" class="form-control" name="slug" value="{{@$model->slug}}" /> --}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <div class="d-flex justify-content-between">
+                                                    <label class="form-label" for="blog-edit-title">SEO Title</label>
+                                                    <span class="seo_title_remains">You have remains 120 character</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="seo_title" value="{{@$model->seo_title}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <div class="d-flex justify-content-between">
+                                                    <label class="form-label" for="blog-edit-title">SEO Description</label>
+                                                    <span class="seo_description_remains">You have remains 160 character</span>
+                                                </div>
+                                                <textarea class="form-control" name="seo_description" id="" cols="30" rows="1">{{@$model->seo_description}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        {{-- <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="blog-edit-slug">SEO Tags</label>
+                                                <input type="text" class="form-control" name="seo_tags" value="{{@$model->seo_tags}}" title="Please use (,) comma for multiple tag" />
+                                            </div>
+                                        </div> --}}
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="blog-edit-slug">SEO keywords</label>
+                                                <input type="text" class="form-control" name="seo_keywords" value="{{@$model->seo_keywords}}" title="Please use (,) comma for multiple tag" />
+                                            </div>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                  </div>
+
                                 <div class="col-12 mt-50 d-flex" >
                                     <div class="submitButton">
                                         <button type="submit" class="btn btn-primary me-1">Save Changes</button>
                                     </div> &nbsp;
                                     <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                                 </div>
+
                             </div>
                         </form>
                         <!--/ Form -->
@@ -171,6 +253,12 @@
     <!--/ Blog Edit -->
 
 </div>
+
+<style>
+  .ql-container{
+    min-height: 10rem !important;
+  }
+</style>
 
 @endsection
 
@@ -190,10 +278,46 @@
     <script src="{{asset('assets/customs/customs.js')}}"></script>
     <script>
         $(document).ready(function () {
+
+            const remainsTask = (max, current) => {
+                let currentLength = Number(current.length);
+                let remains = max - currentLength;
+                if(remains < 0 ){
+                    $("#blogForm").submit();
+                }
+                return `You have remains ${remains} charecter`;
+            }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $(document).on("blur","input[name='title']",function(){
+                 $('.title_remains').html(remainsTask(150 ,$(this).val()));
+                let url = "{{route('blog.get-slug')}}";
+                 $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {title:$(this).val()},
+                    success: function (response) {
+                        console.log(response)
+                       $(".permalinks").html("{{env('APP_URL')}}/"+response)
+                    }
+                })
+            });
+
+            $(document).on("keyup","input[name='seo_title']",function(){
+                 $('.seo_title_remains').html(remainsTask(120 ,$(this).val()))
+            });
+
+            $(document).on("keyup","textarea[name='short_description']",function(){
+                $('.short_description_remains').html(remainsTask(400 ,$(this).val()))
+            });
+
+            $(document).on("keyup","textarea[name='seo_description']",function(){
+                $('.seo_description_remains').html(remainsTask(160 ,$(this).val()))
             });
 
             $('#lfm').filemanager('image');
@@ -201,6 +325,7 @@
             var input = document.querySelector('input[name=tags]');
             // initialize Tagify on the above input node reference
             new Tagify(input)
+
 
             $(document).on('submit',"#blogForm",function (e) {
                 let submitButton = $(".submitButton").html();
@@ -217,6 +342,12 @@
                 let description = $('.ql-editor').html();
                 let photo = $('input[name="photo"]').val();
                 let id = $('input[name="id"]').val();
+                let short_description =  $('textarea[name="short_description"]').val();
+                let publish_date = $('input[name="publish_date"]').val();
+
+                let seo_title = $('input[name="seo_title"]').val();
+                let seo_description = $('input[name="seo_description"]').val();
+                let seo_tags = $('input[name="seo_tags"]').val();
 
                 $.ajax({
                     url: url,
@@ -231,7 +362,12 @@
                             comments,
                             description,
                             photo,
-                            id
+                            id,
+                            short_description,
+                            publish_date,
+                            seo_title,
+                            seo_description,
+                            seo_tags
                         },
                     beforeSend: function () {
                         $(".submitButton").html(lodingButton);
@@ -275,6 +411,8 @@
                 });
 
             });
+
+
         });
     </script>
 @endpush

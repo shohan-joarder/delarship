@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Closure;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -156,7 +157,7 @@ class BlogController extends Controller
     public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title'    => 'required',
+            'title'    => 'required|unique:blogs|max:150',
             'description' => 'required',
             'photo' => 'required',
             'status' => 'required',
@@ -164,7 +165,12 @@ class BlogController extends Controller
             // 'featured' => 'boolean',
             // 'comments' => 'boolean',
             'auther_id' => 'required',
-            'blog_category_id' => 'required'
+            'blog_category_id' => 'required',
+            'short_description' => 'required',
+            'publish_date' => 'required',
+            'seo_title' => 'string|max:120',
+            'seo_description' => 'string|max:120',
+            'seo_tags' => 'string',
         ], [
             'blog_category_id.required' => "Blog category is required",
             'auther_id.required' => "Auther is required"
@@ -212,6 +218,18 @@ class BlogController extends Controller
                 return response()->json(['status' => false, 'message' => "Something went wrong"]);
             }
         }
-        // dd($request->all());
+    }
+
+    public function validation(Request $request)
+    {
+        if (isset($_GET['title'])) {
+            $titleLength = strlen($_GET['title']);
+            return response()->json("Remains only " . 150 - $titleLength . " charecter");
+        }
+    }
+
+    public function slugGenerator(Request $request)
+    {
+        return Str::slug($request->title);
     }
 }

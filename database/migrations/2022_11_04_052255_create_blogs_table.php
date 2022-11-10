@@ -21,12 +21,20 @@ return new class extends Migration
             $table->integer('updated_by')->unsigned()->nullable();
             $table->string("title");
             $table->string("slug")->nullable();
+            $table->longText('short_description');
             $table->longText('description');
             $table->string('photo')->nullable();
             $table->integer('status')->default(1);
             $table->string('tags')->nullable();
+
             $table->boolean('featured')->default(1);
             $table->boolean('comments')->default(1);
+
+            $table->timestamp('publish_date')->useCurrent();
+            $table->string('seo_title')->nullable();
+            $table->longText('seo_description')->nullable();
+            $table->longText('seo_keywords')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

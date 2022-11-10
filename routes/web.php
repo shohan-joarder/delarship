@@ -79,6 +79,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::post('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::post('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
+    Route::get('/blog/validation', [BlogController::class, 'validation'])->name('blog.validation');
+    Route::post('/blog/get-slug', [BlogController::class, 'slugGenerator'])->name('blog.get-slug');
 
     Route::get('blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('blog/save', [BlogController::class, 'save'])->name('blog.save');
