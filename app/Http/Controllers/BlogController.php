@@ -156,21 +156,20 @@ class BlogController extends Controller
 
     public function save(Request $request)
     {
+        // dd(gettype($request->seo_title));
         $validator = Validator::make($request->all(), [
-            'title'    => 'required|unique:blogs|max:150',
+            'title'    => ($request->id) ? 'required|max:150|unique:blogs,title,' . $request->id : 'required|unique:blogs|max:150',
             'description' => 'required',
             'photo' => 'required',
             'status' => 'required',
             'tags' => 'required',
-            // 'featured' => 'boolean',
-            // 'comments' => 'boolean',
             'auther_id' => 'required',
             'blog_category_id' => 'required',
             'short_description' => 'required',
-            'publish_date' => 'required',
-            'seo_title' => 'string|max:120',
-            'seo_description' => 'string|max:120',
-            'seo_tags' => 'string',
+            // 'publish_date' => 'required',
+            'seo_title' => 'max:120',
+            'seo_description' => 'max:160',
+            'seo_keywords' => 'max:160',
         ], [
             'blog_category_id.required' => "Blog category is required",
             'auther_id.required' => "Auther is required"
@@ -186,6 +185,7 @@ class BlogController extends Controller
             $validData = $validator->validated();
             $validData["featured"] = ($request->featured == "true") ? 1 : 0;
             $validData["comments"] = ($request->comments == "true") ? 1 : 0;
+            $validData["publish_date"] = ($request->publish_date) ? $request->publish_date : date('Y-m-d h:i:s');
 
             $photo = $request->photo;
             $photoArr = explode('/storage', $photo);

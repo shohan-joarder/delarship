@@ -489,7 +489,53 @@
                             <a class="d-flex align-items-center" href="{{route('blog')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs List</span></a>
                         </li>
                         <li class="{{\Route::currentRouteName() == "blog-type"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('blog-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Types</span></a>
+                            <a class="d-flex align-items-center" href="{{route('blog-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Categories</span></a>
+                        </li>
+
+                        <li class="{{\Route::currentRouteName() == "blog-author"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog-author')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Author</span></a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item {{\Route::currentRouteName() == "blog-page" || \Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Real Weeding</span></a>
+                    <ul class="menu-content">
+
+                        <li class="{{\Route::currentRouteName() == "blog-page"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Page</span></a>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == "blog"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Weeding Post</span></a>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == "blog-type"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Categories</span></a>
+                        </li>
+
+                        <li class="{{\Route::currentRouteName() == "blog-author"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('blog-author')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Author</span></a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item {{\Route::currentRouteName() == "city" || \Route::currentRouteName() == "vendor"?"has-sub sidebar-group-active open":''}}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather='settings'></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Settings</span>
+                    </a>
+                    <ul class="menu-content">
+
+                        <li class="{{\Route::currentRouteName() == "vendor"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('vendor')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Second Level">Vendor</span>
+                            </a>
+                        </li>
+                        <li class="{{\Route::currentRouteName() == "city"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('city')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Second Level">City</span>
+                            </a>
                         </li>
 
                     </ul>

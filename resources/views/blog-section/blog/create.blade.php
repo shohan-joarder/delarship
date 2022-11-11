@@ -99,10 +99,9 @@
                                 </div>
 
                                 <div class="col-md-6 col-12 d-flex justify-content-between ">
-
                                     <div>
                                         <label class="form-label" for="blog-edit-title">Publish date</label>
-                                        <input type="date" id="fp-date" class="form-control flatpickr-date-time flatpickr-input" name="publish_date" value="{{$model->publish_date}}">
+                                        <input type="date" id="fp-date" class="form-control flatpickr-date-time flatpickr-input" name="publish_date" value="{{  date('Y-m-d', strtotime(@$model->publish_date))}}">
                                         {{-- <input type="text" id="blog-edit-title" class="form-control" value="{{$model->title}}" name="title" /> --}}
                                     </div>
                                     <div>
@@ -187,13 +186,11 @@
                                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                       <div class="accordion-body">
 
-                                        <div class="col-md-12 col-12">
+                                        <div class="col-md-12 col-12 text-center p-1">
                                             <div class="mb-1">
-                                                <div class="d-flex justify-content-between">
-                                                    <label class="form-label" for="blog-edit-title">Permalinks</label>
-                                                </div>
-                                                <a class="" href="{{env('APP_URL')}}/"><span class="permalinks"></span></a>
-                                                {{-- <input type="text" class="form-control" name="slug" value="{{@$model->slug}}" /> --}}
+                                                <p class="showSeoTitle mb-0"></p>
+                                                <p class="showSeoPermalinks mb-0" ></p>
+                                                <p class="showSeoDescription mb-0" ></p>
                                             </div>
                                         </div>
 
@@ -216,13 +213,6 @@
                                                 <textarea class="form-control" name="seo_description" id="" cols="30" rows="1">{{@$model->seo_description}}</textarea>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-md-12 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="blog-edit-slug">SEO Tags</label>
-                                                <input type="text" class="form-control" name="seo_tags" value="{{@$model->seo_tags}}" title="Please use (,) comma for multiple tag" />
-                                            </div>
-                                        </div> --}}
 
                                         <div class="col-md-12 col-12">
                                             <div class="mb-1">
@@ -288,13 +278,49 @@
                 return `You have remains ${remains} charecter`;
             }
 
+            const seoTitleShow = () =>{
+                let blogTitle = $("input[name='title']").val();
+                let seoTitle = $("input[name='seo_title']").val();
+
+                if(seoTitle){
+                    $(".showSeoTitle").html(`<strong>${seoTitle}</strong>`);
+                }else{
+                    $(".showSeoTitle").html(`<strong>${blogTitle}</strong>`);
+                }
+
+            }
+
+
+            // const seoDescriptionShow =()=>{
+            //     $(".showSeoDescription").html("fdfdfd");
+            // }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            const date = new Date();
+            const currentMonth = month[date.getMonth()];
+            const currentFullYear = date.getFullYear();
+            const currentDate = date.getDate();
 
-            $(document).on("blur","input[name='title']",function(){
+            const seoDescriptionShow = () =>{
+
+                let blogShortDesc = $("textarea[name='short_description']").val();
+                let seoDescription = $("textarea[name='seo_description']").val();
+
+                let dateFormate = currentMonth +' '+currentDate +', '+currentFullYear
+                if(seoDescription){
+                    $(".showSeoDescription").html(`<span>${dateFormate} - ${seoDescription}</span>`);
+                }else{
+                    $(".showSeoDescription").html(`<span>${dateFormate} - ${blogShortDesc}</span>`);
+                }
+            }
+
+            $(document).on("keyup","input[name='title']",function(){
+                seoTitleShow();
                  $('.title_remains').html(remainsTask(150 ,$(this).val()));
                 let url = "{{route('blog.get-slug')}}";
                  $.ajax({
@@ -303,20 +329,24 @@
                     data: {title:$(this).val()},
                     success: function (response) {
                         console.log(response)
-                       $(".permalinks").html("{{env('APP_URL')}}/"+response)
+                       $(".showSeoPermalinks").html("{{env('APP_URL')}}/"+response)
                     }
-                })
+                });
+
             });
 
             $(document).on("keyup","input[name='seo_title']",function(){
+                seoTitleShow();
                  $('.seo_title_remains').html(remainsTask(120 ,$(this).val()))
             });
 
             $(document).on("keyup","textarea[name='short_description']",function(){
+                seoDescriptionShow()
                 $('.short_description_remains').html(remainsTask(400 ,$(this).val()))
             });
 
             $(document).on("keyup","textarea[name='seo_description']",function(){
+                seoDescriptionShow()
                 $('.seo_description_remains').html(remainsTask(160 ,$(this).val()))
             });
 
@@ -347,7 +377,7 @@
 
                 let seo_title = $('input[name="seo_title"]').val();
                 let seo_description = $('input[name="seo_description"]').val();
-                let seo_tags = $('input[name="seo_tags"]').val();
+                let seo_keywords = $('input[name="seo_keywords"]').val();
 
                 $.ajax({
                     url: url,
@@ -367,7 +397,7 @@
                             publish_date,
                             seo_title,
                             seo_description,
-                            seo_tags
+                            seo_keywords
                         },
                     beforeSend: function () {
                         $(".submitButton").html(lodingButton);

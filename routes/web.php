@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\BlogAuthorController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogPageController;
 use App\Http\Controllers\BlogTypesController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryToLookController;
 use App\Http\Controllers\HowItWorksController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\MainBannerController;
 use App\Http\Controllers\MiddleBannerController;
 use App\Http\Controllers\PopularVanuesController;
 use App\Http\Controllers\RealWeedingStorieseController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WeedingCategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,6 +87,24 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('blog/save', [BlogController::class, 'save'])->name('blog.save');
+
+    //blog author route
+    Route::get('/blog-author', [BlogAuthorController::class, 'index'])->name('blog-author');
+    Route::post('/blog-author/store', [BlogAuthorController::class, 'store'])->name('blog-author.store');
+    Route::post('/blog-author/edit/{id}', [BlogAuthorController::class, 'edit'])->name('blog-author.edit');
+    Route::post('/blog-author/delete/{id}', [BlogAuthorController::class, 'destroy'])->name('blog-author.delete');
+
+    //city route
+    Route::get('/city', [CityController::class, 'index'])->name('city');
+    Route::post('/city/store', [CityController::class, 'store'])->name('city.store');
+    Route::post('/city/edit/{id}', [CityController::class, 'edit'])->name('city.edit');
+    Route::post('/city/delete/{id}', [CityController::class, 'destroy'])->name('city.delete');
+
+    //city route
+    Route::get('/vendors', [VendorController::class, 'index'])->name('vendor');
+    Route::post('/vendors/store', [VendorController::class, 'store'])->name('vendor.store');
+    Route::post('/vendors/edit/{id}', [VendorController::class, 'edit'])->name('vendor.edit');
+    Route::post('/vendors/delete/{id}', [VendorController::class, 'destroy'])->name('vendor.delete');
 
     //blog page routes
     Route::get('blog-page', [BlogPageController::class, 'index'])->name('blog-page');
