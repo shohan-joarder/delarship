@@ -428,7 +428,7 @@
                     </ul>
                 </li>
                 */?>
-                <li class="nav-item {{\Route::currentRouteName() == "main-banner" || \Route::currentRouteName() == "how-it-works" || \Route::currentRouteName() == "popular-vanues" || \Route::currentRouteName() == "weeding-category" || \Route::currentRouteName() == "real-weeding" || \Route::currentRouteName() == "inhouse-service" || \Route::currentRouteName() == "gallery-to-look" || \Route::currentRouteName() == "middle-banner"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Home</span></a>
+                <li class="nav-item {{\Route::currentRouteName() == "main-banner" || \Route::currentRouteName() == "how-it-works" || \Route::currentRouteName() == "popular-vanues" || \Route::currentRouteName() == "wedding-category" || \Route::currentRouteName() == "real-wedding" || \Route::currentRouteName() == "inhouse-service" || \Route::currentRouteName() == "gallery-to-look" || \Route::currentRouteName() == "middle-banner"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Home</span></a>
                     <ul class="menu-content">
                         <li class="{{\Route::currentRouteName() == 'main-banner'? 'open':''}}">
                             <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Banner</span></a>
@@ -453,15 +453,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="{{\Route::currentRouteName() == 'weeding-category' || \Route::currentRouteName() == 'real-weeding'? 'open':''}}">
+                        {{-- <li class="{{\Route::currentRouteName() == 'wedding-category' || \Route::currentRouteName() == 'real-wedding'? 'open':''}}">
                             <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Weeding</span></a>
                             <ul class="menu-content">
-                                <li class="{{\Route::currentRouteName() == 'weeding-category'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('weeding-category')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Weeding category</span></a>
+                                <li class="{{\Route::currentRouteName() == 'wedding-category'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('wedding-category')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Weeding category</span></a>
                                 </li>
-                                <li class="{{\Route::currentRouteName() == 'real-weeding'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('real-weeding')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Real Weeding</span></a>
+                                <li class="{{\Route::currentRouteName() == 'real-wedding'? 'active':''}}"><a class="d-flex align-items-center" href="{{route('real-wedding')}}"><span class="menu-item text-truncate" data-i18n="Third Level">Real Weeding</span></a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="{{\Route::currentRouteName() == 'inhouse-service' ? 'open':''}}">
                             <a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Service</span></a>
                             <ul class="menu-content">
@@ -479,7 +479,10 @@
                     </ul>
                 </li>
 
-                <li class="nav-item {{\Route::currentRouteName() == "blog-page" || \Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span></a>
+                <li class="nav-item {{\Route::currentRouteName() == "blog-page" || \Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}">
+                    <a class="d-flex align-items-center" href="#"><i data-feather='life-buoy'></i>
+                        <span class="menu-title text-truncate" data-i18n="Menu Levels">Blog</span>
+                    </a>
                     <ul class="menu-content">
 
                         <li class="{{\Route::currentRouteName() == "blog-page"? 'active':''}}">
@@ -499,21 +502,24 @@
                     </ul>
                 </li>
 
-                <li class="nav-item {{\Route::currentRouteName() == "real-weeding-page" || \Route::currentRouteName() == "real-weeding" || \Route::currentRouteName() == "real-weeding-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Real Weeding</span></a>
+                <li class="nav-item {{\Route::currentRouteName() == "real-wedding-page" || \Route::currentRouteName() == "real-wedding" || \Route::currentRouteName() == "real-wedding-category"?"has-sub sidebar-group-active open":''}}">
+                    <a class="d-flex align-items-center" href="#"><i data-feather='command'></i>
+                        <span class="menu-title text-truncate" data-i18n="Menu Levels">Real Wedding</span>
+                    </a>
                     <ul class="menu-content">
 
-                        <li class="{{\Route::currentRouteName() == "real-weeding-page"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('real-weeding-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Page</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-wedding-page"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-wedding-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Page</span></a>
                         </li>
-                        <li class="{{\Route::currentRouteName() == "real-weeding" || \Route::currentRouteName() == "real-weeding.create"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('real-weeding')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Weeding Post</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-wedding" || \Route::currentRouteName() == "real-wedding.create"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-wedding')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Wedding Post</span></a>
                         </li>
-                        <li class="{{\Route::currentRouteName() == "real-weeding-type"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('real-weeding-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Categories</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-wedding-category"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-wedding-category')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Categories</span></a>
                         </li>
 
-                        <li class="{{\Route::currentRouteName() == "real-weeding-author"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('real-weeding-author')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Author</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-wedding-author"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-wedding-author')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Author</span></a>
                         </li>
 
                     </ul>

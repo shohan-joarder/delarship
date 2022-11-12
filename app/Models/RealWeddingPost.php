@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RealWeedingPost extends Model
+class RealWeddingPost extends Model
 {
     use Sluggable;
     use HasFactory;
     use SoftDeletes;
     protected $fillable = [
-        "weeding_category_id",
+        "wedding_category_id",
         "auther_id",
         "created_by",
         "updated_by",
@@ -34,7 +34,7 @@ class RealWeedingPost extends Model
 
     public function blogType()
     {
-        return $this->belongstoMany(RealWeedingCategories::class);
+        return $this->belongstoMany(RealWeddingCategories::class);
     }
 
     public $statuslist = [1 => 'Published', 2 => 'Pending', 3 => 'Draft'];

@@ -25,9 +25,7 @@
     </div>
     <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
         <div class="mb-1 breadcrumb-right">
-            <button type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect addNew" data-bs-toggle="modal" data-bs-target="#RealWeedingCategoriesModal">
-                <i data-feather="plus" class="fw-bold"></i> Add New
-            </button>
+            <button type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect addNew" data-bs-toggle="modal" data-bs-target="#realWeddingAuthor"><i data-feather="plus" class="fw-bold"></i> Add New</button>
         </div>
     </div>
 </div>
@@ -38,7 +36,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-datatable">
-                    <table class="dt-responsive table" id="RealWeedingCategoriesTable">
+                    <table class="dt-responsive table" id="realWeddingAuthorTable">
                         <thead>
                             <tr>
                                 <th class="text-center">SL</th>
@@ -57,23 +55,23 @@
 <!--/ Responsive Datatable -->
 
 {{-- Modal start --}}
-<div class="modal fade" id="RealWeedingCategoriesModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="realWeddingAuthor" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title modaltitle" id="">Create real weeding category</h5>
+                <h5 class="modal-title modaltitle" id="">Create Real wedding author</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="form form-vertical" method="POST" action="{{route('real-weeding-type.store')}}" id="RealWeedingCategoriesForm">
+                <form class="form form-vertical" method="POST" action="{{route('real-wedding-author.store')}}" id="realWeddingForm">
                     @csrf
                     <input type="hidden" id="dataId" name="id">
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="first-name-vertical">Title</label>
-                                <input type="text" id="first-name-vertical " class="form-control title" name="title" placeholder="Title" >
-                                <span class="text-danger text-xs errors error_title"></span>
+                                <input type="text" id="first-name-vertical " class="form-control title" name="name" placeholder="Title" >
+                                <span class="text-danger text-xs errors error_name"></span>
                             </div>
                         </div>
 
@@ -114,12 +112,13 @@
 <script>
     $(document).ready(function () {
 
+        const submitButton = $(".submitButton").html();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var t = $('#RealWeedingCategoriesTable').DataTable({
+        var t = $('#realWeddingAuthorTable').DataTable({
                     "scrollX":false,
                     "processing": true,
                     "serverSide": true,
@@ -157,7 +156,7 @@
 
         t.draw();
 
-        $("#RealWeedingCategoriesTable").on('draw.dt', function(){
+        $("#realWeddingAuthorTable").on('draw.dt', function(){
             let n = 0;
             $(".index-td").each(function(){
                 n = n+1;
@@ -166,32 +165,33 @@
             });
         });
 
-        $(document).on("submit", "#RealWeedingCategoriesForm", function (e) {
+        $(document).on("submit", "#realWeddingForm", function (e) {
             e.preventDefault();
             $(".errors").html("");
-            formSubmit("RealWeedingCategoriesForm",$(this).attr("action"),"RealWeedingCategoriesModal",t)
+            formSubmit("realWeddingForm",$(this).attr("action"),"realWeddingAuthor",t)
 
         })
 
         $(document).on("click",".editData",function(e){
-            $(".modaltitle").html("Update real weeding category");
+
+            $(".modaltitle").html("Update real wedding author");
             $(".buttonTitle").html("Update");
             let url = $(this).attr('data-url');
             $.ajax({
                 url : url,
                 type : 'POST',
                 beforeSend : function(){
-                    //$(".submitButton").html(lodingButton);
+                    $(".submitButton").html(lodingButton);
                 },
                 success : function(response){
-                    const {id,title,sort_order} = response;
+                    const {id,name,sort_order} = response;
                     $("#dataId").val(id);
-                    $(".title").val(title);
+                    $(".title").val(name);
                     $(".sortOrder").val(sort_order);
-                    $("#RealWeedingCategoriesModal").modal("show");
+                    $("#realWeddingAuthor").modal("show");
                 },
                 complete : function(data){
-                    //$( ".submitButton" ).html(submitButton);
+                    $( ".submitButton" ).html(submitButton);
                 }
             })
         });
@@ -202,9 +202,9 @@
         });
 
         $(document).on("click",".addNew",function(){
-            $('#RealWeedingCategoriesForm')[0].reset();
+            $('#realWeddingForm')[0].reset();
             $("#dataId").val('');
-            $(".modaltitle").html("Create real weeding category");
+            $(".modaltitle").html("Create real wedding author");
             $(".buttonTitle").html("Save");
         });
 

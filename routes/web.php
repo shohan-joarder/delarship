@@ -12,13 +12,13 @@ use App\Http\Controllers\InHouseServiceController;
 use App\Http\Controllers\MainBannerController;
 use App\Http\Controllers\MiddleBannerController;
 use App\Http\Controllers\PopularVanuesController;
-use App\Http\Controllers\RealWeedingAuthorController;
-use App\Http\Controllers\RealWeedingCategoriesController;
-use App\Http\Controllers\RealWeedingPageController;
-use App\Http\Controllers\RealWeedingPostController;
-use App\Http\Controllers\RealWeedingStorieseController;
+use App\Http\Controllers\RealWeddingAuthorController;
+use App\Http\Controllers\RealWeddingCategoriesController;
+use App\Http\Controllers\RealWeddingPageController;
+use App\Http\Controllers\RealWeddingPostController;
+use App\Http\Controllers\RealWeddingStorieseController;
 use App\Http\Controllers\VendorController;
-use App\Http\Controllers\WeedingCategoryController;
+use App\Http\Controllers\WeddingCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
@@ -44,11 +44,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('popular-vanues/edit/{id}', [PopularVanuesController::class, 'edit'])->name('popular-vanues.edit');
     Route::post('popular-vanues/delete/{id}', [PopularVanuesController::class, 'destroy'])->name('popular-vanues.delete');
 
-    //weeding category
-    Route::get('/weeding-category', [WeedingCategoryController::class, 'index'])->name('weeding-category');
-    Route::post('/weeding-category/store', [WeedingCategoryController::class, 'store'])->name('weeding-category.store');
-    Route::post('/weeding-category/edit/{id}', [WeedingCategoryController::class, 'edit'])->name('weeding-category.edit');
-    Route::post('/weeding-category/delete/{id}', [WeedingCategoryController::class, 'destroy'])->name('weeding-category.delete');
+    //Wedding category
+    Route::get('/Wedding-category', [WeddingCategoryController::class, 'index'])->name('Wedding-category');
+    Route::post('/Wedding-category/store', [WeddingCategoryController::class, 'store'])->name('Wedding-category.store');
+    Route::post('/Wedding-category/edit/{id}', [WeddingCategoryController::class, 'edit'])->name('Wedding-category.edit');
+    Route::post('/Wedding-category/delete/{id}', [WeddingCategoryController::class, 'destroy'])->name('Wedding-category.delete');
 
     //inhouse services
     Route::get('/inhouse-service', [InHouseServiceController::class, 'index'])->name('inhouse-service');
@@ -56,11 +56,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/inhouse-service/edit/{id}', [InHouseServiceController::class, 'edit'])->name('inhouse-service.edit');
     Route::post('/inhouse-service/delete/{id}', [InHouseServiceController::class, 'destroy'])->name('inhouse-service.delete');
 
-    //real weeding section
-    Route::get('/real-weeding', [RealWeedingStorieseController::class, 'index'])->name('real-weeding');
-    Route::post('/real-weeding/store', [RealWeedingStorieseController::class, 'store'])->name('real-weeding.store');
-    Route::post('/real-weeding/edit/{id}', [RealWeedingStorieseController::class, 'edit'])->name('real-weeding.edit');
-    Route::post('/real-weeding/delete/{id}', [RealWeedingStorieseController::class, 'destroy'])->name('real-weeding.delete');
+    //real Wedding section
+    Route::get('/real-wedding', [RealWeddingStorieseController::class, 'index'])->name('real-wedding');
+    Route::post('/real-wedding/store', [RealWeddingStorieseController::class, 'store'])->name('real-wedding.store');
+    Route::post('/real-wedding/edit/{id}', [RealWeddingStorieseController::class, 'edit'])->name('real-wedding.edit');
+    Route::post('/real-wedding/delete/{id}', [RealWeddingStorieseController::class, 'destroy'])->name('real-wedding.delete');
 
     //Gallery to look section
     Route::get('/gallery-to-look', [GalleryToLookController::class, 'index'])->name('gallery-to-look');
@@ -99,30 +99,30 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/blog-types/edit/{id}', [BlogTypesController::class, 'edit'])->name('blog-type.edit');
     Route::post('/blog-types/delete/{id}', [BlogTypesController::class, 'destroy'])->name('blog-type.delete');
 
-    //Real weeding routes
-    Route::get('real-weeding', [RealWeedingPostController::class, 'index'])->name('real-weeding');
-    Route::get('real-weeding/edit/{id}', [RealWeedingPostController::class, 'edit'])->name('real-weeding.edit');
-    Route::post('real-weeding/delete/{id}', [RealWeedingPostController::class, 'destroy'])->name('real-weeding.delete');
-    Route::get('real-weeding/validation', [RealWeedingPostController::class, 'validation'])->name('real-weeding.validation');
-    Route::post('real-weeding/get-slug', [RealWeedingPostController::class, 'slugGenerator'])->name('real-weeding.get-slug');
-    Route::get('real-weeding/create', [RealWeedingPostController::class, 'create'])->name('real-weeding.create');
-    Route::post('real-weeding/save', [RealWeedingPostController::class, 'save'])->name('real-weeding.save');
+    //Real Wedding routes
+    Route::get('real-wedding', [RealWeddingPostController::class, 'index'])->name('real-wedding');
+    Route::get('real-wedding/edit/{id}', [RealWeddingPostController::class, 'edit'])->name('real-wedding.edit');
+    Route::post('real-wedding/delete/{id}', [RealWeddingPostController::class, 'destroy'])->name('real-wedding.delete');
+    Route::get('real-wedding/validation', [RealWeddingPostController::class, 'validation'])->name('real-wedding.validation');
+    Route::post('real-wedding/get-slug', [RealWeddingPostController::class, 'slugGenerator'])->name('real-wedding.get-slug');
+    Route::get('real-wedding/create', [RealWeddingPostController::class, 'create'])->name('real-wedding.create');
+    Route::post('real-wedding/save', [RealWeddingPostController::class, 'save'])->name('real-wedding.save');
 
-    //Real weeding author route
-    Route::get('/real-weeding-author', [RealWeedingAuthorController::class, 'index'])->name('real-weeding-author');
-    Route::post('/real-weeding-author/store', [RealWeedingAuthorController::class, 'store'])->name('real-weeding-author.store');
-    Route::post('/real-weeding-author/edit/{id}', [RealWeedingAuthorController::class, 'edit'])->name('real-weeding-author.edit');
-    Route::post('/real-weeding-author/delete/{id}', [RealWeedingAuthorController::class, 'destroy'])->name('real-weeding-author.delete');
+    //Real Wedding author route
+    Route::get('/real-wedding-author', [RealWeddingAuthorController::class, 'index'])->name('real-wedding-author');
+    Route::post('/real-wedding-author/store', [RealWeddingAuthorController::class, 'store'])->name('real-wedding-author.store');
+    Route::post('/real-wedding-author/edit/{id}', [RealWeddingAuthorController::class, 'edit'])->name('real-wedding-author.edit');
+    Route::post('/real-wedding-author/delete/{id}', [RealWeddingAuthorController::class, 'destroy'])->name('real-wedding-author.delete');
 
-    //Real weeding types/category routes
-    Route::get('real-weeding-types', [RealWeedingCategoriesController::class, 'index'])->name('real-weeding-type');
-    Route::post('real-weeding-types/store', [RealWeedingCategoriesController::class, 'store'])->name('real-weeding-type.store');
-    Route::post('real-weeding-types/edit/{id}', [RealWeedingCategoriesController::class, 'edit'])->name('real-weeding-type.edit');
-    Route::post('real-weeding-types/delete/{id}', [RealWeedingCategoriesController::class, 'destroy'])->name('real-weeding-type.delete');
+    //Real Wedding types/category routes
+    Route::get('real-wedding-types', [RealWeddingCategoriesController::class, 'index'])->name('real-wedding-category');
+    Route::post('real-wedding-types/store', [RealWeddingCategoriesController::class, 'store'])->name('real-wedding-category.store');
+    Route::post('real-wedding-types/edit/{id}', [RealWeddingCategoriesController::class, 'edit'])->name('real-wedding-category.edit');
+    Route::post('real-wedding-types/delete/{id}', [RealWeddingCategoriesController::class, 'destroy'])->name('real-wedding-category.delete');
 
     //blog page routes
-    Route::get('real-weeding-page', [RealWeedingPageController::class, 'index'])->name('real-weeding-page');
-    Route::post('real-weeding-page/store', [RealWeedingPageController::class, 'store'])->name('real-weeding-page.store');
+    Route::get('real-wedding-page', [RealWeddingPageController::class, 'index'])->name('real-wedding-page');
+    Route::post('real-wedding-page/store', [RealWeddingPageController::class, 'store'])->name('real-wedding-page.store');
 
     //city route
     Route::get('/city', [CityController::class, 'index'])->name('city');

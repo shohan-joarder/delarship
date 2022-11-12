@@ -40,8 +40,8 @@ class RealWeedingStorieseController extends Controller
                     'status' => $row->status,
                     'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
                     'updated_at' => $row->updated_at,
-                    'edit' => route('real-weeding.edit', $row->id),
-                    'delete' => route('real-weeding.delete', $row->id),
+                    'edit' => route('real-wedding.edit', $row->id),
+                    'delete' => route('real-wedding.delete', $row->id),
                 ];
             endforeach;
             $this->return = [
@@ -54,7 +54,7 @@ class RealWeedingStorieseController extends Controller
         }
         $data = [];
         $data["title"] = "Real weeding";
-        return view('home-section.real-weeding.index', $data);
+        return view('home-section.real-wedding.index', $data);
     }
 
     public function store(Request $request)

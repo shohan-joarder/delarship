@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('real_weeding_posts', function (Blueprint $table) {
+        Schema::create('real_wedding_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('weeding_category_id')->nullable();
+            $table->string('wedding_category_id')->nullable();
             $table->integer('auther_id')->unsigned()->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
@@ -48,6 +48,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_weeding_posts');
+        Schema::dropIfExists('real_wedding_posts');
     }
 };

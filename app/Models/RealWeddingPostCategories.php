@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RealWeedingPostCategories extends Model
+class RealWeddingPostCategories extends Model
 {
     use HasFactory;
-    protected $table = "real_weeding_categories_real_weeding_post";
+    protected $table = "real_wedding_categories_real_wedding_post";
     protected $fillable =  [
-        "real_weeding_post_id",
-        "real_weeding_categories_id"
+        "real_wedding_post_id",
+        "real_wedding_categories_id"
     ];
 }

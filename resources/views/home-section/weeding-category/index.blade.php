@@ -63,7 +63,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="form form-vertical" method="POST" action="{{route('weeding-category.store')}}" id="popularVanueForm">
+                <form class="form form-vertical" method="POST" action="{{route('wedding-category.store')}}" id="popularVanueForm">
                     @csrf
                     <input type="hidden" id="dataId" name="id">
                     <div class="row">

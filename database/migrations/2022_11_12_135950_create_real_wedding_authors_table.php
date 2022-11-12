@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\RealWeddingAuthor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +14,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('real_weeding_categories', function (Blueprint $table) {
+        Schema::create('real_wedding_authors', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->boolean('status')->default(true);
-            $table->integer('sort_order')->nullable();
-            $table->softDeletes();
+            $table->string('name');
+            $table->integer('sort_order');
             $table->timestamps();
         });
+        for ($i = 0; $i < 2; $i++) {
+            RealWeddingAuthor::create([
+                'name' => 'author' . $i,
+                'sort_order' => $i++
+            ]);
+        }
     }
 
     /**
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_weeding_categories');
+        Schema::dropIfExists('real_wedding_authors');
     }
 };

@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RealWeedingAuthor;
-use App\Models\RealWeedingCategories;
-use App\Models\RealWeedingPost;
-use App\Models\RealWeedingPostCategories;
+use App\Models\RealWeddingAuthor;
+use App\Models\RealWeddingCategories;
+use App\Models\RealWeddingPost;
+use App\Models\RealWeddingPostCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Closure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class RealWeedingPostController extends Controller
+class RealWeddingPostController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $info = RealWeedingPost::where('id', '!=', '');
+            $info = RealWeddingPost::where('id', '!=', '');
 
             if ($request->search['value'] != '') {
                 $info = $info->where(function ($query) use ($request) {
@@ -59,8 +59,8 @@ class RealWeedingPostController extends Controller
                     'type' => $categoty,
                     'description' => $description,
                     'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
-                    'edit' => route('real-weeding.edit', $row->id),
-                    'delete' => route('real-weeding.delete', $row->id),
+                    'edit' => route('real-wedding.edit', $row->id),
+                    'delete' => route('real-wedding.delete', $row->id),
                     'title' => $row->title,
                     'tags' => $tags,
                     'sort_order' => $row->sort_order,
@@ -78,8 +78,8 @@ class RealWeedingPostController extends Controller
             return response()->json($this->return);
         }
         $data = [];
-        $data["title"] = "Real Weeding";
-        return view('real-weeding-section.weeding.index', $data);
+        $data["title"] = "Real Wedding";
+        return view('real-wedding-section.wedding.index', $data);
     }
 
     public function store(Request $request)
@@ -105,13 +105,13 @@ class RealWeedingPostController extends Controller
             $validData["photo"] = $photoData;
             if ($request->id) {
                 $validData["updated_by"] = auth()->user()->id;
-                RealWeedingPost::find($request->id)->update($validData);
+                RealWeddingPost::find($request->id)->update($validData);
                 $data["status"] = true;
                 $data["message"] = "Blog updated successfully";
                 return response()->json($data);
             } else {
                 $validData["created_by"] = auth()->user()->id;
-                RealWeedingPost::create($validData);
+                RealWeddingPost::create($validData);
                 $data["status"] = true;
                 $data["message"] = "Blog added successfully";
 
@@ -123,29 +123,29 @@ class RealWeedingPostController extends Controller
     public function create()
     {
         $data = [];
-        $data["title"] = "Create new weeding";
-        $data["model"] = new RealWeedingPost();
-        $data["categoty"] = RealWeedingCategories::pluck('title', 'id');
-        $data["authors"] = RealWeedingAuthor::pluck('name', 'id');
+        $data["title"] = "Create new wedding";
+        $data["model"] = new RealWeddingPost();
+        $data["categoty"] = RealWeddingCategories::pluck('title', 'id');
+        $data["authors"] = RealWeddingAuthor::pluck('name', 'id');
         $data["blogCatagories"] = [];
-        return view('real-weeding-section.weeding.create', $data);
+        return view('real-wedding-section.wedding.create', $data);
     }
 
     public function edit($id)
     {
         $data = [];
-        $data["title"] = "Update weeding";
-        $data["model"] = RealWeedingPost::find($id);
-        $data["categoty"] = RealWeedingCategories::pluck('title', 'id');
-        $data["authors"] = RealWeedingAuthor::pluck('name', 'id');
-        $data["blogCatagories"]  = json_decode($data["model"]->weeding_category_id);
-        return view('real-weeding-section.weeding.create', $data);
+        $data["title"] = "Update wedding";
+        $data["model"] = RealWeddingPost::find($id);
+        $data["categoty"] = RealWeddingCategories::pluck('title', 'id');
+        $data["authors"] = RealWeddingAuthor::pluck('name', 'id');
+        $data["blogCatagories"]  = json_decode($data["model"]->wedding_category_id);
+        return view('real-wedding-section.wedding.create', $data);
     }
 
     public function destroy($id)
     {
         if ($id) {
-            RealWeedingPost::find($id)->delete();
+            RealWeddingPost::find($id)->delete();
             return response()->json(["status" => true, "message" => "Deleted successfully"]);
         } else {
             return response()->json(["status" => false, "message" => "Something went wrong"]);
@@ -156,20 +156,20 @@ class RealWeedingPostController extends Controller
     {
         // dd(gettype($request->seo_title));
         $validator = Validator::make($request->all(), [
-            'title'    => ($request->id) ? 'required|max:150|unique:real_weeding_posts,title,' . $request->id : 'required|unique:blogs|max:150',
+            'title'    => ($request->id) ? 'required|max:150|unique:real_wedding_posts,title,' . $request->id : 'required|unique:blogs|max:150',
             'description' => 'required',
             'photo' => 'required',
             'status' => 'required',
             'tags' => 'required',
             'auther_id' => 'required',
-            'weeding_category_id' => 'required',
+            'wedding_category_id' => 'required',
             'short_description' => 'required',
             // 'publish_date' => 'required',
             'seo_title' => 'max:120',
             'seo_description' => 'max:160',
             'seo_keywords' => 'max:160',
         ], [
-            'weeding_category_id.required' => "Weeding category is required",
+            'wedding_category_id.required' => "Wedding category is required",
             'auther_id.required' => "Auther is required"
         ]);
         $data = [];
@@ -189,23 +189,23 @@ class RealWeedingPostController extends Controller
             $photoArr = explode('/storage', $photo);
             $photoData = 'storage' . $photoArr[1];
             $validData["photo"] = $photoData;
-            $validData["weeding_category_id"] = json_encode($request->weeding_category_id);
+            $validData["wedding_category_id"] = json_encode($request->wedding_category_id);
 
             DB::beginTransaction();
             if ($request->id) {
                 $blogId = $request->id;
-                RealWeedingPost::find($blogId)->update($validData);
-                RealWeedingPostCategories::where('real_weeding_post_id', $blogId)->delete();
-                $data["message"] = "Real weeding updated successfully";
+                RealWeddingPost::find($blogId)->update($validData);
+                RealWeddingPostCategories::where('real_wedding_post_id', $blogId)->delete();
+                $data["message"] = "Real wedding updated successfully";
             } else {
-                $storeBlog = RealWeedingPost::create($validData);
+                $storeBlog = RealWeddingPost::create($validData);
                 $blogId = $storeBlog->id;
-                $data["message"] = "Real weeding added successfully";
+                $data["message"] = "Real wedding added successfully";
             }
             if ($blogId) {
                 // insert data into prevot table
-                foreach ($request->weeding_category_id as $key => $value) {
-                    RealWeedingPostCategories::create(['real_weeding_post_id' => $blogId, 'real_weeding_categories_id' => $value]);
+                foreach ($request->wedding_category_id as $key => $value) {
+                    RealWeddingPostCategories::create(['real_wedding_post_id' => $blogId, 'real_wedding_categories_id' => $value]);
                 }
 
                 DB::commit();

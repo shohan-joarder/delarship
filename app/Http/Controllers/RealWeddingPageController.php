@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RealWeedingPage;
+use App\Models\RealWeddingPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RealWeedingPageController extends Controller
+class RealWeddingPageController extends Controller
 {
     public function index()
     {
         $data = [];
-        $data["title"] = "Real weeding page";
-        $data["allData"] = RealWeedingPage::first();
+        $data["title"] = "Real wedding page";
+        $data["allData"] = RealWeddingPage::first();
         if (!$data["allData"]) {
-            RealWeedingPage::create([]);
+            RealWeddingPage::create([]);
         }
-        return view('real-weeding-section.page.index', $data);
+        return view('real-wedding-section.page.index', $data);
     }
 
     public function store(Request $request)
@@ -56,10 +56,10 @@ class RealWeedingPageController extends Controller
             $bottomBannerData = 'storage' . $bottomBannerArr[1];
             $validData["bottom_banner"] = $bottomBannerData;
 
-            RealWeedingPage::first()->update($validData);
+            RealWeddingPage::first()->update($validData);
             $data = [];
             $data["status"] = true;
-            $data["message"] = "Real weeding page data updated successfully";
+            $data["message"] = "Real wedding page data updated successfully";
             return response()->json($data);
         }
     }

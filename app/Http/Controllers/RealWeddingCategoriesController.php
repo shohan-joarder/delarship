@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RealWeedingAuthor;
+use App\Models\RealWeddingCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RealWeedingAuthorController extends Controller
+class RealWeddingCategoriesController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $info = RealWeedingAuthor::where('id', '!=', '');
+            $info = RealWeddingCategories::where('id', '!=', '');
 
             if ($request->search['value'] != '') {
                 $info = $info->where(function ($query) use ($request) {
-                    $query->orWhere('name', 'LIKE', '%' . $request->search['value'] . '%')
+                    $query->orWhere('title', 'LIKE', '%' . $request->search['value'] . '%')
                         ->orWhere('sort_order', 'LIKE', '%' . $request->search['value'] . '%');
                 });
             }
@@ -33,9 +33,9 @@ class RealWeedingAuthorController extends Controller
             foreach ($alldata as $row) :
                 $data[] = [
                     'id' => $row->id,
-                    'edit' => route('real-weeding-author.edit', $row->id),
-                    'delete' => route('real-weeding-author.delete', $row->id),
-                    'title' => $row->name,
+                    'edit' => route('real-wedding-category.edit', $row->id),
+                    'delete' => route('real-wedding-category.delete', $row->id),
+                    'title' => $row->title,
                     'sort_order' => $row->sort_order,
                     'status' => $row->status,
                     'updated_at' => $row->updated_at,
@@ -51,14 +51,14 @@ class RealWeedingAuthorController extends Controller
         }
 
         $data = [];
-        $data["title"] = "Real weeding author";
-        return view('real-weeding-section.author.index', $data);
+        $data["title"] = "Real wedding categories";
+        return view('real-wedding-section.categories.index', $data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'    => 'required',
+            'title'    => 'required',
             'sort_order' => 'required',
         ]);
         $data = [];
@@ -68,15 +68,15 @@ class RealWeedingAuthorController extends Controller
             return response()->json($data);
         } else {
             if ($request->id) {
-                if (RealWeedingAuthor::find($request->id)->update($validator->validated())) {
+                if (RealWeddingCategories::find($request->id)->update($validator->validated())) {
                     $data["status"] = true;
-                    $data["message"] = "Real weeding author updated successfully";
+                    $data["message"] = "Real wedding category updated successfully";
                     return response()->json($data);
                 }
             } else {
-                RealWeedingAuthor::create($validator->validated());
+                RealWeddingCategories::create($validator->validated());
                 $data["status"] = true;
-                $data["message"] = "Real weeding author added successfully";
+                $data["message"] = "Real wedding category added successfully";
                 return response()->json($data);
             }
         }
@@ -84,14 +84,14 @@ class RealWeedingAuthorController extends Controller
 
     public function edit($id)
     {
-        $data = RealWeedingAuthor::find($id);
+        $data = RealWeddingCategories::find($id);
         return response()->json($data);
     }
 
     public function destroy($id)
     {
         if ($id) {
-            RealWeedingAuthor::find($id)->delete();
+            RealWeddingCategories::find($id)->delete();
             return response()->json(["status" => true, "message" => "Deleted successfully"]);
         } else {
             return response()->json(["status" => false, "message" => "Something went wrong"]);

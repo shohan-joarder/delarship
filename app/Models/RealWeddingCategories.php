@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RealWeedingCategories extends Model
+class RealWeddingCategories extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -16,6 +16,6 @@ class RealWeedingCategories extends Model
 
     public function realWeedingPost()
     {
-        return $this->belongstoMany(RealWeedingPost::class);
+        return $this->belongstoMany(RealWeddingPost::class);
     }
 }

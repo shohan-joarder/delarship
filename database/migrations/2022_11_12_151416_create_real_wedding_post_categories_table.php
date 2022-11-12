@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('real_weeding_categories_real_weeding_post', function (Blueprint $table) {
+        Schema::create('real_wedding_categories_real_wedding_post', function (Blueprint $table) {
             $table->id();
-            $table->integer('real_weeding_post_id');
-            $table->integer('real_weeding_categories_id');
+            $table->integer('real_wedding_post_id');
+            $table->integer('real_wedding_categories_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_weeding_post_categories');
+        Schema::dropIfExists('real_wedding_post_categories');
     }
 };

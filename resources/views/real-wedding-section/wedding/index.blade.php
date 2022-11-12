@@ -25,7 +25,7 @@
     </div>
     <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
         <div class="mb-1 breadcrumb-right">
-            <a href="{{route('real-weeding.create')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect"><i data-feather="plus" class="fw-bold"></i> Add New</a>
+            <a href="{{route('real-wedding.create')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect"><i data-feather="plus" class="fw-bold"></i> Add New</a>
         </div>
     </div>
 </div>

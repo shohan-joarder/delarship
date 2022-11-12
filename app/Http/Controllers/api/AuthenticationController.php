@@ -20,7 +20,7 @@ class AuthenticationController extends Controller
             "brand_name" => 'requird',
             "city" => 'required',
             "vendor" => 'required',
-            "phone" => 'required',
+            "phone" => 'required|unique:users',
             "email" => 'required|email|unique:users',
             "password" => 'required',
         ]);
@@ -32,7 +32,7 @@ class AuthenticationController extends Controller
 
             $validData = $validator->validated();
             // $validData['password'] = Crypt::encrypt($request->password);
-            return response()->json($validData);
+            // return response()->json($validData);
             if (User::create($validData)) {
                 return response()->json(['status' => "success", "message" => "Vendor created successfully"], 200);
             }

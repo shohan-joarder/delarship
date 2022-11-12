@@ -40,8 +40,8 @@ class WeedingCategoryController extends Controller
                     'status' => $row->status,
                     'image' => '<img class="img-container img-flid" src="' . asset("$row->photo") . '" alt="" style="max-width:250px">',
                     'updated_at' => $row->updated_at,
-                    'edit' => route('weeding-category.edit', $row->id),
-                    'delete' => route('weeding-category.delete', $row->id),
+                    'edit' => route('wedding-category.edit', $row->id),
+                    'delete' => route('wedding-category.delete', $row->id),
                 ];
             endforeach;
             $this->return = [
@@ -54,7 +54,7 @@ class WeedingCategoryController extends Controller
         }
         $data = [];
         $data["title"] = "Weeding Category";
-        return view('home-section.weeding-category.index', $data);
+        return view('home-section.wedding-category.index', $data);
     }
 
     public function store(Request $request)

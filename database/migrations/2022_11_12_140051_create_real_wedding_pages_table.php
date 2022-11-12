@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('real_weeding_pages', function (Blueprint $table) {
+        Schema::create('real_wedding_pages', function (Blueprint $table) {
             $table->id();
 
             $table->string('main_baner')->nullable();;
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('bottom_banner')->nullable();;
             $table->string('bottom_banner_content_1')->nullable();;
             $table->string('bottom_banner_content_2')->nullable();;
-            $table->longText('real_weeding_page_meta')->nullable();
+            $table->longText('real_wedding_page_meta')->nullable();
 
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_weeding_pages');
+        Schema::dropIfExists('real_wedding_pages');
     }
 };

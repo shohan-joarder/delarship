@@ -145,11 +145,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Blog Page Meta</h4>
+                    <h4 class="card-title">Wedding Page Meta</h4>
                 </div>
                 <div class="card-body">
 
-                    <template name="blog_page_meta" id="blogPageMeta">{{@$allData->blog_page_meta}}</template>
+                    <template name="real_wedding_page_meta" id="blogPageMeta">{{@$allData->real_wedding_page_meta}}</template>
 
                 </div>
             </div>
