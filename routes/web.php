@@ -12,6 +12,10 @@ use App\Http\Controllers\InHouseServiceController;
 use App\Http\Controllers\MainBannerController;
 use App\Http\Controllers\MiddleBannerController;
 use App\Http\Controllers\PopularVanuesController;
+use App\Http\Controllers\RealWeedingAuthorController;
+use App\Http\Controllers\RealWeedingCategoriesController;
+use App\Http\Controllers\RealWeedingPageController;
+use App\Http\Controllers\RealWeedingPostController;
 use App\Http\Controllers\RealWeedingStorieseController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WeedingCategoryController;
@@ -39,12 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('popular-vanues/store', [PopularVanuesController::class, 'store'])->name('popular-vanues.store');
     Route::post('popular-vanues/edit/{id}', [PopularVanuesController::class, 'edit'])->name('popular-vanues.edit');
     Route::post('popular-vanues/delete/{id}', [PopularVanuesController::class, 'destroy'])->name('popular-vanues.delete');
-
-    //blog types/category routes
-    Route::get('/blog-type', [BlogTypesController::class, 'index'])->name('blog-type');
-    Route::post('/blog-types/store', [BlogTypesController::class, 'store'])->name('blog-type.store');
-    Route::post('/blog-types/edit/{id}', [BlogTypesController::class, 'edit'])->name('blog-type.edit');
-    Route::post('/blog-types/delete/{id}', [BlogTypesController::class, 'destroy'])->name('blog-type.delete');
 
     //weeding category
     Route::get('/weeding-category', [WeedingCategoryController::class, 'index'])->name('weeding-category');
@@ -76,15 +74,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/middle-banner/edit/{id}', [MiddleBannerController::class, 'edit'])->name('middle-banner.edit');
     Route::post('/middle-banner/delete/{id}', [MiddleBannerController::class, 'destroy'])->name('middle-banner.delete');
 
+    //blog page routes
+    Route::get('blog-page', [BlogPageController::class, 'index'])->name('blog-page');
+    Route::post('blog-page/store', [BlogPageController::class, 'store'])->name('blog-page.store');
+
     //blog routes
     Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-    Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
-    // Route::post('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::post('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
     Route::get('/blog/validation', [BlogController::class, 'validation'])->name('blog.validation');
     Route::post('/blog/get-slug', [BlogController::class, 'slugGenerator'])->name('blog.get-slug');
-
     Route::get('blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('blog/save', [BlogController::class, 'save'])->name('blog.save');
 
@@ -93,6 +92,37 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/blog-author/store', [BlogAuthorController::class, 'store'])->name('blog-author.store');
     Route::post('/blog-author/edit/{id}', [BlogAuthorController::class, 'edit'])->name('blog-author.edit');
     Route::post('/blog-author/delete/{id}', [BlogAuthorController::class, 'destroy'])->name('blog-author.delete');
+
+    //blog types/category routes
+    Route::get('/blog-type', [BlogTypesController::class, 'index'])->name('blog-type');
+    Route::post('/blog-types/store', [BlogTypesController::class, 'store'])->name('blog-type.store');
+    Route::post('/blog-types/edit/{id}', [BlogTypesController::class, 'edit'])->name('blog-type.edit');
+    Route::post('/blog-types/delete/{id}', [BlogTypesController::class, 'destroy'])->name('blog-type.delete');
+
+    //Real weeding routes
+    Route::get('real-weeding', [RealWeedingPostController::class, 'index'])->name('real-weeding');
+    Route::get('real-weeding/edit/{id}', [RealWeedingPostController::class, 'edit'])->name('real-weeding.edit');
+    Route::post('real-weeding/delete/{id}', [RealWeedingPostController::class, 'destroy'])->name('real-weeding.delete');
+    Route::get('real-weeding/validation', [RealWeedingPostController::class, 'validation'])->name('real-weeding.validation');
+    Route::post('real-weeding/get-slug', [RealWeedingPostController::class, 'slugGenerator'])->name('real-weeding.get-slug');
+    Route::get('real-weeding/create', [RealWeedingPostController::class, 'create'])->name('real-weeding.create');
+    Route::post('real-weeding/save', [RealWeedingPostController::class, 'save'])->name('real-weeding.save');
+
+    //Real weeding author route
+    Route::get('/real-weeding-author', [RealWeedingAuthorController::class, 'index'])->name('real-weeding-author');
+    Route::post('/real-weeding-author/store', [RealWeedingAuthorController::class, 'store'])->name('real-weeding-author.store');
+    Route::post('/real-weeding-author/edit/{id}', [RealWeedingAuthorController::class, 'edit'])->name('real-weeding-author.edit');
+    Route::post('/real-weeding-author/delete/{id}', [RealWeedingAuthorController::class, 'destroy'])->name('real-weeding-author.delete');
+
+    //Real weeding types/category routes
+    Route::get('real-weeding-types', [RealWeedingCategoriesController::class, 'index'])->name('real-weeding-type');
+    Route::post('real-weeding-types/store', [RealWeedingCategoriesController::class, 'store'])->name('real-weeding-type.store');
+    Route::post('real-weeding-types/edit/{id}', [RealWeedingCategoriesController::class, 'edit'])->name('real-weeding-type.edit');
+    Route::post('real-weeding-types/delete/{id}', [RealWeedingCategoriesController::class, 'destroy'])->name('real-weeding-type.delete');
+
+    //blog page routes
+    Route::get('real-weeding-page', [RealWeedingPageController::class, 'index'])->name('real-weeding-page');
+    Route::post('real-weeding-page/store', [RealWeedingPageController::class, 'store'])->name('real-weeding-page.store');
 
     //city route
     Route::get('/city', [CityController::class, 'index'])->name('city');
@@ -105,10 +135,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/vendors/store', [VendorController::class, 'store'])->name('vendor.store');
     Route::post('/vendors/edit/{id}', [VendorController::class, 'edit'])->name('vendor.edit');
     Route::post('/vendors/delete/{id}', [VendorController::class, 'destroy'])->name('vendor.delete');
-
-    //blog page routes
-    Route::get('blog-page', [BlogPageController::class, 'index'])->name('blog-page');
-    Route::post('blog-page/store', [BlogPageController::class, 'store'])->name('blog-page.store');
 });
 
 

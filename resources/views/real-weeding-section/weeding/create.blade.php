@@ -26,7 +26,7 @@
     </div>
     <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
         <div class="mb-1 breadcrumb-right">
-            <a href="{{route('blog')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect addNew" ><i data-feather='arrow-left'></i> Back</a>
+            <a href="{{route('real-weeding')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect addNew" ><i data-feather='arrow-left'></i> Back</a>
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Form -->
-                        <form class="mt-2" id="blogForm" action="{{route('blog.save')}}" enctype="multipart/form-data">
+                        <form class="mt-2" id="blogForm" action="{{route('real-weeding.save')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 col-12">
@@ -56,7 +56,7 @@
 
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" >Author</label>
+                                        <label class="form-label" for="blog-edit-category">Author</label>
                                         {{ Form::select('auther_id', $authors, $model->auther_id, array('class'=>' form-select', 'id'=>"", 'placeholder'=>'Please select author...')) }}
                                         <span class="text-danger text-xs errors error_auther_id"></span>
                                     </div>
@@ -65,7 +65,7 @@
                                 <div class="col-md-12 col-12">
                                     <div class="mb-1">
                                         <div class="d-flex justify-content-between">
-                                            <label class="form-label" >Short Description</label>
+                                            <label class="form-label" for="blog-edit-title">Short Description</label>
                                             <span class="short_description_remains">You have remains 400 character</span>
                                         </div>
                                         <textarea class="form-control" name="short_description" id="" cols="30" rows="2">{!! $model->short_description !!}</textarea>
@@ -76,8 +76,8 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" >Category</label>
-                                        {{ Form::select('blog_category_id', $categoty, $blogCatagories, array('class'=>'select2 form-select',  'id'=>"blog_category_id", 'multiple'=>'true')) }}
-                                        <span class="text-danger text-xs errors error_blog_category_id"></span>
+                                        {{ Form::select('weeding_category_id', $categoty, $blogCatagories, array('class'=>'select2 form-select',  'id'=>"weeding_category_id", 'multiple'=>'true')) }}
+                                        <span class="text-danger text-xs errors error_weeding_category_id"></span>
                                     </div>
                                 </div>
 
@@ -100,8 +100,8 @@
 
                                 <div class="col-md-6 col-12 d-flex justify-content-between ">
                                     <div>
-                                        <label class="form-label" for="">Publish date</label>
-                                        <input type="date" id="fp-date" class="form-control flatpickr-date-time flatpickr-input" name="publish_date" value="{{$model->publish_date?date('Y-m-d', strtotime(@$model->publish_date)):date('Y-m-d')}}">
+                                        <label class="form-label" >Publish date</label>
+                                        <input type="date" id="fp-date" class="form-control flatpickr-date-time flatpickr-input" name="publish_date" value="{{ $model->publish_date?date('Y-m-d', strtotime(@$model->publish_date)):date('Y-m-d')}}">
                                         {{-- <input type="text" id="blog-edit-title" class="form-control" value="{{$model->title}}" name="title" /> --}}
                                     </div>
                                     <div>
@@ -308,10 +308,6 @@
             }
 
 
-            // const seoDescriptionShow =()=>{
-            //     $(".showSeoDescription").html("fdfdfd");
-            // }
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -339,7 +335,7 @@
             $(document).on("keyup","input[name='title']",function(){
                 seoTitleShow();
                  $('.title_remains').html(remainsTask(150 ,$(this).val()));
-                let url = "{{route('blog.get-slug')}}";
+                let url = "{{route('real-weeding.get-slug')}}";
                  $.ajax({
                     url: url,
                     type: "POST",
@@ -385,7 +381,7 @@
                 let url = $(this).attr('action');
                 let title = $("input[name='title']").val();
                 let auther_id = $("select[name='auther_id']").val();
-                let blog_category_id = $("#blog_category_id").val();
+                let weeding_category_id = $("#weeding_category_id").val();
                 let status = $("select[name='status']").val();
                 let tags = $("input[name='tags']").val();
                 let featured = $('#customSwitch1').prop('checked');
@@ -406,7 +402,7 @@
                     data: {
                             title,
                             auther_id,
-                            blog_category_id,
+                            weeding_category_id,
                             status,
                             tags,
                             featured,
@@ -452,7 +448,7 @@
                                 showConfirmButton: false,
                                 timer: 1500,
                             }).then(() => {
-                                window.location.replace("{{route('blog')}}")
+                                window.location.replace("{{route('real-weeding')}}")
                             });
                         }
                     },

@@ -25,7 +25,7 @@
     </div>
     <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
         <div class="mb-1 breadcrumb-right">
-            <a href="{{route('blog.create')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect"><i data-feather="plus" class="fw-bold"></i> Add New</a>
+            <a href="{{route('real-weeding.create')}}" type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect"><i data-feather="plus" class="fw-bold"></i> Add New</a>
         </div>
     </div>
 </div>
@@ -118,7 +118,7 @@ $(document).ready(function () {
                 "scrollX":false,
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('blog') }}",
+                "ajax": "",
                 "order": [[ 2, "desc" ]],
                 "columns": [
             {

@@ -485,7 +485,7 @@
                         <li class="{{\Route::currentRouteName() == "blog-page"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('blog-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Page</span></a>
                         </li>
-                        <li class="{{\Route::currentRouteName() == "blog"? 'active':''}}">
+                        <li class="{{\Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog.create"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('blog')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs List</span></a>
                         </li>
                         <li class="{{\Route::currentRouteName() == "blog-type"? 'active':''}}">
@@ -499,21 +499,21 @@
                     </ul>
                 </li>
 
-                <li class="nav-item {{\Route::currentRouteName() == "blog-page" || \Route::currentRouteName() == "blog" || \Route::currentRouteName() == "blog-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Real Weeding</span></a>
+                <li class="nav-item {{\Route::currentRouteName() == "real-weeding-page" || \Route::currentRouteName() == "real-weeding" || \Route::currentRouteName() == "real-weeding-type"?"has-sub sidebar-group-active open":''}}"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Menu Levels">Real Weeding</span></a>
                     <ul class="menu-content">
 
-                        <li class="{{\Route::currentRouteName() == "blog-page"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('blog-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Blogs Page</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-weeding-page"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-weeding-page')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Page</span></a>
                         </li>
-                        <li class="{{\Route::currentRouteName() == "blog"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('blog')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Weeding Post</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-weeding" || \Route::currentRouteName() == "real-weeding.create"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-weeding')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Weeding Post</span></a>
                         </li>
-                        <li class="{{\Route::currentRouteName() == "blog-type"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('blog-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Categories</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-weeding-type"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-weeding-type')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Categories</span></a>
                         </li>
 
-                        <li class="{{\Route::currentRouteName() == "blog-author"? 'active':''}}">
-                            <a class="d-flex align-items-center" href="{{route('blog-author')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Author</span></a>
+                        <li class="{{\Route::currentRouteName() == "real-weeding-author"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('real-weeding-author')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Author</span></a>
                         </li>
 
                     </ul>

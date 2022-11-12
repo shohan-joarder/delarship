@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\api\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Settings route
+Route::get('city', [SettingsController::class, 'getCity']);
+Route::get('vendor', [SettingsController::class, 'getVendors']);
+
+// authintication route
+Route::post('register', [AuthenticationController::class, 'register']);

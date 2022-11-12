@@ -18,8 +18,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable();
+            $table->string('full_name')->nullable();
+            $table->string('brand_name')->nullable();
+
+            $table->integer('city')->unsigned()->nullable();
+            $table->integer('vendor')->unsigned()->nullable();
+
             $table->string('email')->unique();
-            $table->string('mobile_no')->nullable();
+            $table->string('phone')->nullable();
             $table->enum('role', ['0', '1', '2', '3']); //0 = inactive 1=admin 2=vendor 3=user
             $table->enum('gender', ['0', '1']);
             $table->enum('status', ['0', '1'])->default('0');
@@ -33,7 +39,7 @@ return new class extends Migration
         User::updateOrCreate([
             'username'   => 'Admin',
             'role'    => '1',
-            'mobile_no'  => '+8801776446562',
+            'phone'  => '+8801776446562',
             'gender'     => '0',
             'email'      => 'admin@gmail.com',
             'password'   =>  Hash::make('password'),
