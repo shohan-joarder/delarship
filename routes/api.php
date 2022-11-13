@@ -29,6 +29,8 @@ Route::get('vendor', [SettingsController::class, 'getVendors']);
 Route::post('register', [AuthenticationController::class, 'register']);
 Route::post('verify-account', [AuthenticationController::class, 'verifyAccount']);
 Route::post('login', [AuthenticationController::class, 'login']);
+Route::post('forgot-password', [AuthenticationController::class, 'forgotPassword']);
+Route::post('save-new-password', [AuthenticationController::class, 'setNewPassword']);
 
 
 // middleware verification
