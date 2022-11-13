@@ -73,6 +73,13 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label" >SEO keywords</label>
+                                        <input type="text" class="form-control" name="seo_keywords" value="{{@$model->seo_keywords}}" title="Please use (,) comma for multiple tag" />
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" >Category</label>
@@ -228,13 +235,6 @@
                                                     <span class="seo_description_remains">You have remains 160 character</span>
                                                 </div>
                                                 <textarea class="form-control" name="seo_description" id="" cols="30" rows="1">{{@$model->seo_description}}</textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" >SEO keywords</label>
-                                                <input type="text" class="form-control" name="seo_keywords" value="{{@$model->seo_keywords}}" title="Please use (,) comma for multiple tag" />
                                             </div>
                                         </div>
 
