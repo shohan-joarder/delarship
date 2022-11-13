@@ -31,7 +31,8 @@ class User extends Authenticatable
         "brand_name",
         "city",
         "vendor",
-        "phone"
+        "phone",
+        "otp"
     ];
 
     /**

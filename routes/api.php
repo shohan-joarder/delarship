@@ -27,3 +27,12 @@ Route::get('vendor', [SettingsController::class, 'getVendors']);
 
 // authintication route
 Route::post('register', [AuthenticationController::class, 'register']);
+Route::post('verify-account', [AuthenticationController::class, 'verifyAccount']);
+Route::post('login', [AuthenticationController::class, 'login']);
+
+
+// middleware verification
+Route::group(['middleware' => ['verify.apitoken']], function () {
+    // logout
+    Route::post('logout', [AuthenticationController::class, 'logout']);
+});
