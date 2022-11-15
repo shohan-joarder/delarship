@@ -32,9 +32,14 @@ class RealWeddingPost extends Model
         "seo_keywords"
     ];
 
-    public function blogType()
+    public function category()
     {
         return $this->belongstoMany(RealWeddingCategories::class);
+    }
+
+    public function author()
+    {
+        return $this->hasOne(RealWeddingAuthor::class);
     }
 
     public $statuslist = [1 => 'Published', 2 => 'Pending', 3 => 'Draft'];

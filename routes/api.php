@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\api\BlogController;
+use App\Http\Controllers\api\RealWeddingController;
 use App\Http\Controllers\api\SettingsController;
+use App\Http\Controllers\api\VendorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +36,29 @@ Route::post('forgot-password', [AuthenticationController::class, 'forgotPassword
 Route::post('save-new-password', [AuthenticationController::class, 'setNewPassword']);
 
 
+// Blog route
+Route::get('blog/{limit?}', [BlogController::class, 'index']);
+Route::get('blog-page', [BlogController::class, 'page']);
+Route::get('blog/{slug}', [BlogController::class, 'show']);
+Route::get('blog/author', [BlogController::class, 'author']);
+Route::get('blog/category', [BlogController::class, 'category']);
+
+// Blog route
+Route::get('real-weeding/{limit?}', [RealWeddingController::class, 'index']);
+Route::get('real-weeding-page', [RealWeddingController::class, 'page']);
+Route::get('real-weeding/{slug}', [RealWeddingController::class, 'show']);
+Route::get('real-weeding/author', [RealWeddingController::class, 'author']);
+Route::get('real-weeding/category', [RealWeddingController::class, 'category']);
+
+
 // middleware verification
 Route::group(['middleware' => ['verify.apitoken']], function () {
     // logout
     Route::post('logout', [AuthenticationController::class, 'logout']);
+
+    // Vendor info API
+    Route::post("/update-vendor-information", [VendorController::class, 'update']);
+    Route::post("/upload-vendor-project", [VendorController::class, 'uploadPortfolio']);
+    Route::get("/get-vendor-information", [VendorController::class, 'getInfo']);
+    Route::get("/get-vendor-projects", [VendorController::class, 'getProject']);
 });

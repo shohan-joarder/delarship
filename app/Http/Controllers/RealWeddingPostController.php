@@ -35,12 +35,12 @@ class RealWeddingPostController extends Controller
 
             $count = $info->count();
             $data = [];
-            $alldata = $info->with('blogType')->offset($request->start)->limit($request->length)->get();
+            $alldata = $info->with('category')->offset($request->start)->limit($request->length)->get();
 
 
             foreach ($alldata as $row) :
                 $categoty = '';
-                foreach ($row->blogType as $key => $value) {
+                foreach ($row->category as $key => $value) {
                     $categoty .= $value->title . ", ";
                 };
                 $tags = '';
