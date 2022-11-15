@@ -59,6 +59,9 @@ Route::group(['middleware' => ['verify.apitoken']], function () {
     // Vendor info API
     Route::post("/update-vendor-information", [VendorController::class, 'update']);
     Route::post("/upload-vendor-project", [VendorController::class, 'uploadPortfolio']);
+    Route::get("/delete-vendor-project/{id}", [VendorController::class, 'deleteProject']);
+
     Route::get("/get-vendor-information", [VendorController::class, 'getInfo']);
+
     Route::get("/get-vendor-projects", [VendorController::class, 'getProject']);
 });

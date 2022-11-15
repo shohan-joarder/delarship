@@ -89,4 +89,20 @@ class VendorController extends Controller
         $decodedToken = decodeToken($token);
         $userId = $decodedToken->uid;
     }
+
+    public function deleteProject(Request $request, $id)
+    {
+        $token = $request->header("x-auth-token");
+        $decodedToken = decodeToken($token);
+        $userId = $decodedToken->uid;
+        $findProject = VendorPortfolio::find($id);
+        if ($findProject) {
+            $findProject->delete();
+            $dir = public_path('storage/files/' . $userId . '/' . $findProject->title);
+            if (file_exists($dir)) {
+                unlink($dir);
+            }
+            return response()->json(['status' => "success", "message" => "Projects deleted successfully."], 200);
+        }
+    }
 }
