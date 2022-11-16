@@ -64,4 +64,7 @@ Route::group(['middleware' => ['verify.apitoken']], function () {
     Route::get("/get-vendor-information", [VendorController::class, 'getInfo']);
 
     Route::get("/get-vendor-projects", [VendorController::class, 'getProject']);
+
+    Route::post("/upload-vendor-album", [VendorController::class, 'uploadAlbum']);
+    Route::get("/get-album", [VendorController::class, 'getAlbum']);
 });

@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VendorPortfolio extends Model
+class Album extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "user_id",
-        "title",
-        "photo",
-        "album",
-        "status",
-        "album_id"
+        'title',
+        'user_id'
     ];
+
+    public function image()
+    {
+        return $this->hasMany(VendorPortfolio::class)->where('album', 1);
+    }
 }

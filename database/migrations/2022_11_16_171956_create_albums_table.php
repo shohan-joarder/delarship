@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_portfolios', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->constrained();
-            $table->integer('album_id')->constrained()->nullable();
-
-            $table->string('title')->nullable();
-            $table->string('photo')->nullable();
-            $table->boolean('album')->default(false);
-            $table->integer('status')->default(1);
+            $table->string('title');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_portfolios');
+        Schema::dropIfExists('albums');
     }
 };

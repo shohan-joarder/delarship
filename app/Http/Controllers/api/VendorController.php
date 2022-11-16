@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\VendorPortfolio;
@@ -83,11 +84,33 @@ class VendorController extends Controller
         return response()->json(['status' => 'success', 'data' => $data]);
     }
 
-    public function createAlbum(Request $request)
+    public function uploadAlbum(Request $request)
     {
-        $token = $request->header("x-auth-token");
-        $decodedToken = decodeToken($token);
-        $userId = $decodedToken->uid;
+        $validator = Validator::make($request->all(), [
+            'images' => 'required|array',
+            'title' => "required"
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => "error", "errors" => $validator->errors()], 401);
+        } else {
+            $token = $request->header("x-auth-token");
+            $decodedToken = decodeToken($token);
+            $userId = $decodedToken->uid;
+            $createAlbum = Album::create(['title' => $request->title, 'user_id' => $userId]);
+            if ($createAlbum->id) :
+                foreach ($request->file('images') as $key => $image) {
+                    $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                    $dir = public_path('storage/files/' . $userId);
+                    if (!file_exists($dir)) {
+                        mkdir($dir);
+                    }
+                    if ($image->move($dir, $new_name)) {
+                        VendorPortfolio::create(['user_id' => $userId, 'album_id' => $createAlbum->id, 'album' => true, 'title' => $new_name, 'photo' => 'storage/files/' . $userId . '/' . $new_name]);
+                    }
+                }
+            endif;
+            return response()->json(['status' => "success", "message" => "Album created successfully."], 200);
+        }
     }
 
     public function deleteProject(Request $request, $id)
@@ -103,6 +126,18 @@ class VendorController extends Controller
                 unlink($dir);
             }
             return response()->json(['status' => "success", "message" => "Projects deleted successfully."], 200);
+        } else {
+            return response()->json(['status' => "error", "message" => "Not found."], 401);
         }
+    }
+
+    public function getAlbum(Request $request)
+    {
+        $token = $request->header("x-auth-token");
+        $decodedToken = decodeToken($token);
+        $userId = $decodedToken->uid;
+        $data = Album::with('image')->get();
+        return response()->json(['status' => "success", "data" => $data], 200);
+        // Album
     }
 }
