@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function city()
+    {
+        return $this->hasOne(City::class, 'id', 'city');
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class, 'id', 'vendor');
+    }
 }

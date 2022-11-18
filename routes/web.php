@@ -20,6 +20,7 @@ use App\Http\Controllers\RealWeddingStorieseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WeddingCategoryController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
@@ -139,9 +140,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('all-vendors', [UserController::class, 'vendors'])->name('all-vendors');
     Route::get('users', [UserController::class, 'users'])->name('users');
+    Route::post('change-user-status', [UserController::class, 'changeStatus'])->name('change-user-status');
 });
 
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+
+Route::get('run-artisan', function () {
+    $command = $_GET["command"];
+    if (isset($command)) {
+        Artisan::call($command);
+        return redirect()->back();
+    } else {
+        return redirect()->back();
+    }
 });

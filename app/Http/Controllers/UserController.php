@@ -99,4 +99,13 @@ class UserController extends Controller
         $data["title"] = "All Users";
         return view('settings.users.all-users', $data);
     }
+
+    public function changeStatus(Request $request)
+    {
+        $id = $request->id;
+        $updateStatus = User::find($id);
+        $updateStatus->status = ($updateStatus->status == 1) ? false : true;
+        $updateStatus->save();
+        return response()->json(['status' => 'success', 'message' => "Status changed successfully."]);
+    }
 }

@@ -50,6 +50,7 @@ Route::get('real-weeding-page', [RealWeddingController::class, 'page']);
 Route::get('real-weeding/{slug}', [RealWeddingController::class, 'show']);
 Route::get('real-weeding/author', [RealWeddingController::class, 'author']);
 Route::get('real-weeding/category', [RealWeddingController::class, 'category']);
+route::get('vendor-all', [VendorController::class, 'allVendor']);
 
 
 // middleware verification
@@ -68,6 +69,4 @@ Route::group(['middleware' => ['verify.apitoken']], function () {
 
     Route::post("/upload-vendor-album", [VendorController::class, 'uploadAlbum']);
     Route::get("/get-album", [VendorController::class, 'getAlbum']);
-
-
 });

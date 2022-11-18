@@ -140,4 +140,15 @@ class VendorController extends Controller
         return response()->json(['status' => "success", "data" => $data], 200);
         // Album
     }
+
+    public function allVendor()
+    {
+        $data = User::with(['city', 'vendor'])->where('role', 2)->get();
+        if ($data) {
+            return response()->json(['status' => 'success', 'data' => $data]);
+        } else {
+            return response()->json(['status' => 'success', 'message' => "No data found"]);
+        }
+    }
+
 }

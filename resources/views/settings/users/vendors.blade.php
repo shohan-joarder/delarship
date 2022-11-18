@@ -45,6 +45,7 @@
                                 <th>Phone</th>
                                 <th>Status</th>
                                 <th>Verified</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -98,11 +99,17 @@
                 {
                     "data": "status",
                     render:(data,type,row)=>{
-                        if(row == 0){
-                            return  `<span class="btn btn-danger btn-sm waves-effect waves-float waves-light">Inactive</span>`
+                        console.log(data);
+                        if(data == 1){
+                            `<span class="btn btn-success btn-sm waves-effect waves-float waves-light">Active</span>`
                         }else{
-                            return  `<span class="btn btn-success btn-sm waves-effect waves-float waves-light">Active</span>`
+                            `<span class="btn btn-danger btn-sm waves-effect waves-float waves-light">Inactive</span>`
                         }
+                        // if(row === 1){
+                        //     return  `<span class="btn btn-danger btn-sm waves-effect waves-float waves-light">Inactive</span>`
+                        // }else{
+                        //     return  `<span class="btn btn-success btn-sm waves-effect waves-float waves-light">Active</span>`
+                        // }
                     }
                 },
                 {
@@ -112,8 +119,19 @@
                             return `<span class="btn btn-success btn-sm waves-effect waves-float waves-light">Yes</span>`
                         }else{
                             return `<span class="btn btn-danger btn-sm waves-effect waves-float waves-light">No</span>`
-                            return `<span class="btn btn-danger btn-sm waves-effect waves-float waves-light">No</span>`
                         }
+                    }
+                },
+                {
+                    "data":"id",
+                    "orderable": false,
+                    "searchable": false,
+                    "className": 'action text-center',
+                    render: function(data, type, row) {
+                         return `
+                         <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input changeStatus" ${row.status == 1?'checked':''} id="customSwitch1" name="featured" data-id=${row.id} />
+                            </div>`;
                     }
                 },
                 {
@@ -132,6 +150,38 @@
                 if(n!=1)
                     $(this).html(n-1);
             });
+        });
+
+        $(document).on("click",".changeStatus",function(){
+            let id = $(this).attr("data-id");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "If Deleted, You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{route('change-user-status')}}",
+                            type: "POST",
+                            data:{id},
+                            beforeSend: function () {
+                                //$(".submitButton").html(lodingButton);
+                            },
+                            success: function (response) {
+
+                            },
+                            complete: function (data) {
+                                t.draw();
+                            }
+                        })
+                    }
+                });
+
         });
 
 

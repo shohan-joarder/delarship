@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->integer('role'); // ['0', '1', '2', '3'] 0 = inactive 1=admin 2=vendor 3=user
             $table->enum('gender', ['0', '1']);
-            $table->enum('status', ['0', '1'])->default('0');
+            $table->boolean('status')->default('0');
             $table->string('photo')->nullable();
             $table->string('cover_photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
