@@ -5,6 +5,7 @@ use App\Http\Controllers\api\BlogController;
 use App\Http\Controllers\api\RealWeddingController;
 use App\Http\Controllers\api\SettingsController;
 use App\Http\Controllers\api\VendorController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -67,4 +68,6 @@ Route::group(['middleware' => ['verify.apitoken']], function () {
 
     Route::post("/upload-vendor-album", [VendorController::class, 'uploadAlbum']);
     Route::get("/get-album", [VendorController::class, 'getAlbum']);
+
+
 });

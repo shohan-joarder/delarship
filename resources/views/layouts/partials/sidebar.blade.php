@@ -537,10 +537,25 @@
                                 <span class="menu-item text-truncate" data-i18n="Second Level">Vendor</span>
                             </a>
                         </li>
+
                         <li class="{{\Route::currentRouteName() == "city"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('city')}}">
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Second Level">City</span>
+                            </a>
+                        </li>
+
+                        <li class="{{\Route::currentRouteName() == "all-vendors"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('all-vendors')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Second Level">All Vendors</span>
+                            </a>
+                        </li>
+
+                        <li class="{{\Route::currentRouteName() == "users"? 'active':''}}">
+                            <a class="d-flex align-items-center" href="{{route('users')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Second Level">Users</span>
                             </a>
                         </li>
 

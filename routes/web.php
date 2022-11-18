@@ -17,6 +17,7 @@ use App\Http\Controllers\RealWeddingCategoriesController;
 use App\Http\Controllers\RealWeddingPageController;
 use App\Http\Controllers\RealWeddingPostController;
 use App\Http\Controllers\RealWeddingStorieseController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WeddingCategoryController;
 use Illuminate\Support\Facades\Route;
@@ -135,6 +136,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/vendors/store', [VendorController::class, 'store'])->name('vendor.store');
     Route::post('/vendors/edit/{id}', [VendorController::class, 'edit'])->name('vendor.edit');
     Route::post('/vendors/delete/{id}', [VendorController::class, 'destroy'])->name('vendor.delete');
+
+    Route::get('all-vendors', [UserController::class, 'vendors'])->name('all-vendors');
+    Route::get('users', [UserController::class, 'users'])->name('users');
 });
 
 

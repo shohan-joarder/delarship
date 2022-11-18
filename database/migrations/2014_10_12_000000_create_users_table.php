@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->enum('role', ['0', '1', '2', '3']); //0 = inactive 1=admin 2=vendor 3=user
+            $table->integer('role'); // ['0', '1', '2', '3'] 0 = inactive 1=admin 2=vendor 3=user
             $table->enum('gender', ['0', '1']);
             $table->enum('status', ['0', '1'])->default('0');
             $table->string('photo')->nullable();
