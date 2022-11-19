@@ -24,6 +24,11 @@ return new class extends Migration
             $table->integer('city')->unsigned()->nullable();
             $table->integer('vendor')->unsigned()->nullable();
 
+            $table->decimal('average_ratings')->nullable();
+            $table->integer('reviews')->nullable();
+
+            $table->integer('view_count')->nullable();
+
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->integer('role'); // ['0', '1', '2', '3'] 0 = inactive 1=admin 2=vendor 3=user

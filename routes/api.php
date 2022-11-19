@@ -69,4 +69,10 @@ Route::group(['middleware' => ['verify.apitoken']], function () {
 
     Route::post("/upload-vendor-album", [VendorController::class, 'uploadAlbum']);
     Route::get("/get-album", [VendorController::class, 'getAlbum']);
+
+    Route::post('store-ratings', [VendorController::class, 'saveRatings']);
+    Route::get('get-ratings/{id}', [VendorController::class, 'getRatings']);
+
+    Route::post('store-review', [VendorController::class, 'saveReview']);
+    Route::get('get-review/{id}', [VendorController::class, 'getReview']);
 });

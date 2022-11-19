@@ -32,7 +32,9 @@ class User extends Authenticatable
         "city",
         "vendor",
         "phone",
-        "otp"
+        "otp",
+        "average_ratings",
+        "reviews"
     ];
 
     /**
