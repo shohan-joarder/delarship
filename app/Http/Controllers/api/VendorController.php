@@ -10,6 +10,7 @@ use App\Models\Review;
 use App\Models\User;
 use App\Models\VendorPortfolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class VendorController extends Controller
@@ -217,5 +218,13 @@ class VendorController extends Controller
             }
         }
     }
-}
 
+    public function vendorAnalytics(Request $request)
+    {
+        $token = $request->header("x-auth-token");
+        $decodedToken = decodeToken($token);
+        $userId = $decodedToken->uid;
+        $getUserData = DB::table('users')->select('average_ratings', 'reviews', 'view_count')->find($userId);
+        return response()->json(['status' => 'error', 'data' => $getUserData]);
+    }
+}

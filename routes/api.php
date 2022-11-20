@@ -75,4 +75,5 @@ Route::group(['middleware' => ['verify.apitoken']], function () {
 
     Route::post('store-review', [VendorController::class, 'saveReview']);
     Route::get('get-review/{id}', [VendorController::class, 'getReview']);
+    Route::get('vendor-analytics', [VendorController::class, 'vendorAnalytics']);
 });
