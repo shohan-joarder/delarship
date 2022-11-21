@@ -11,6 +11,7 @@ function formSubmit(formId, url, modalId = "", dataTable = "") {
             $(".submitButton").html(lodingButton);
         },
         success: function (response) {
+            feather.replace();
             const { status, message, errors } = response;
             if (status == false) {
                 if (message) {
@@ -40,6 +41,7 @@ function formSubmit(formId, url, modalId = "", dataTable = "") {
                     timer: 1500,
                 }).then(() => {
                     if (dataTable) {
+                        // feather.replace();
                         dataTable.draw();
                     }
                     if (modalId) {
@@ -50,6 +52,7 @@ function formSubmit(formId, url, modalId = "", dataTable = "") {
             }
         },
         complete: function (data) {
+            // feather.replace();
             $(".submitButton").html(submitButton);
         },
     });

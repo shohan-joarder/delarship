@@ -75,13 +75,13 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <div class="mb-1">
                                 <label class="form-label" for="contact-info-vertical">Sort order</label>
                                 <input type="number" id="contact-info-vertical" class="form-control sortOrder" name="sort_order" placeholder="Sort Order" >
                                 <span class="text-danger text-xs errors error_sort_order"></span>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 d-flex justify-content-end">
                             <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
@@ -133,17 +133,17 @@
                 {
                     "data": "title",
                 },
-                {
-                    "data": "sort_order",
-                },
+                // {
+                //     "data": "sort_order",
+                // },
                 {
                     "data":"id",
                     "orderable": false,
                     "searchable": false,
                     "className": 'action text-center',
                     render: function(data, type, row) {
-                         return `<button type="button" title="Edit" class="btn btn-primary btn-sm editData" data-url="${row.edit}"><i data-feather='edit-3'></i></button>
-                         <button type="button" title="Delete" class="btn btn-danger btn-sm deleteData" data-url="${row.delete}"><i data-feather='trash' ></i></button>
+                         return `<button type="button" title="Edit" class="btn btn-primary btn-sm editData" data-url="${row.edit}"><i class="fa fa-pencil"></i></button>
+                         <button type="button" title="Delete" class="btn btn-danger btn-sm deleteData" data-url="${row.delete}"><i class="fa fa-trash" ></i></button>
                          `;
                     }
                 },

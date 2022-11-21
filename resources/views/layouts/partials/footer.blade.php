@@ -37,6 +37,7 @@
     {{-- sweetalert 2 --}}
     <script src="{{asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
     {{-- sweetalert 2 --}}
+    <script src="https://use.fontawesome.com/224cf357a1.js"></script>
     <script>
         $(window).on('load', function() {
             if (feather) {

@@ -545,10 +545,19 @@
                             </a>
                         </li>
 
+                    </ul>
+                </li>
+
+                <li class="nav-item {{\Route::currentRouteName() == "users" || \Route::currentRouteName() == "all-vendors"?"has-sub sidebar-group-active open":''}}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather='user'></i><span class="menu-title text-truncate" data-i18n="Menu Levels">All Users</span>
+                    </a>
+                    <ul class="menu-content">
+
                         <li class="{{\Route::currentRouteName() == "all-vendors"? 'active':''}}">
                             <a class="d-flex align-items-center" href="{{route('all-vendors')}}">
                                 <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Second Level">All Vendors</span>
+                                <span class="menu-item text-truncate" data-i18n="Second Level">Vendors</span>
                             </a>
                         </li>
 

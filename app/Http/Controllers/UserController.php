@@ -51,7 +51,7 @@ class UserController extends Controller
         }
         $data = [];
         $data["title"] = "All Vendors";
-        return view('settings.users.vendors', $data);
+        return view('users.vendors', $data);
     }
     public function users(Request $request)
     {
@@ -97,7 +97,7 @@ class UserController extends Controller
         }
         $data = [];
         $data["title"] = "All Users";
-        return view('settings.users.all-users', $data);
+        return view('users.all-users', $data);
     }
 
     public function changeStatus(Request $request)

@@ -60,7 +60,7 @@ class VendorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'    => 'required',
-            'sort_order' => 'required',
+            // 'sort_order' => 'required',
         ]);
         $data = [];
         $data["status"] = false;

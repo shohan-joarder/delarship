@@ -17,13 +17,13 @@ return new class extends Migration
         Schema::create('real_wedding_authors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('sort_order');
+            $table->integer('sort_order')->nullable();
             $table->timestamps();
         });
         for ($i = 0; $i < 2; $i++) {
             RealWeddingAuthor::create([
                 'name' => 'author' . $i,
-                'sort_order' => $i++
+                'sort_order' => $i
             ]);
         }
     }

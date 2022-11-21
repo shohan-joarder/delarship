@@ -23,11 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-        <div class="mb-1 breadcrumb-right">
-            <button type="button" class="btn btn-primary waves-effect waves-float waves-light waves-effect addNew" data-bs-toggle="modal" data-bs-target="#vendorModal"><i data-feather="plus" class="fw-bold"></i> Add New</button>
-        </div>
-    </div>
+
 </div>
 
   <!-- Responsive Datatable -->

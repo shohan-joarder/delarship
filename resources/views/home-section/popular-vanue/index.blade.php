@@ -188,8 +188,8 @@
                     "searchable": false,
                     "className": 'action text-center',
                     render: function(data, type, row) {
-                            return `<button type="button" title="Edit" class="btn btn-primary btn-sm editData" data-url="${row.edit}"><i data-feather='edit-3'></i></button>
-                            <button type="button" title="Delete" class="btn btn-danger btn-sm deleteData" data-url="${row.delete}"><i data-feather='trash' ></i></button>
+                            return `<button type="button" title="Edit" class="btn btn-primary btn-sm editData" data-url="${row.edit}"><i class="fa fa-pencil"></i></button>
+                            <button type="button" title="Delete" class="btn btn-danger btn-sm deleteData" data-url="${row.delete}"><i class="fa fa-trash" ></i></button>
                             `;
                     }
                 },
