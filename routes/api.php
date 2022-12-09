@@ -40,16 +40,16 @@ Route::post('save-new-password', [AuthenticationController::class, 'setNewPasswo
 // Blog route
 Route::get('blog/{limit?}', [BlogController::class, 'index']);
 Route::get('blog-page', [BlogController::class, 'page']);
-Route::get('blog/{slug}', [BlogController::class, 'show']);
-Route::get('blog/author', [BlogController::class, 'author']);
-Route::get('blog/category', [BlogController::class, 'category']);
+Route::get('blog-show/{slug}', [BlogController::class, 'show']);
+Route::get('blog-author', [BlogController::class, 'getAuthor']);
+Route::get('blog-category', [BlogController::class, 'getCategory']);
 
-// Blog route
+// Real weeding route
 Route::get('real-weeding/{limit?}', [RealWeddingController::class, 'index']);
 Route::get('real-weeding-page', [RealWeddingController::class, 'page']);
-Route::get('real-weeding/{slug}', [RealWeddingController::class, 'show']);
-Route::get('real-weeding/author', [RealWeddingController::class, 'author']);
-Route::get('real-weeding/category', [RealWeddingController::class, 'category']);
+Route::get('real-weeding-show/{slug}', [RealWeddingController::class, 'show']);
+Route::get('real-weeding-author', [RealWeddingController::class, 'author']);
+Route::get('real-weeding-category', [RealWeddingController::class, 'category']);
 route::get('vendor-all', [VendorController::class, 'allVendor']);
 
 
