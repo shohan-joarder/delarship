@@ -50,28 +50,6 @@ return new class extends Migration
             'email'      => 'admin@gmail.com',
             'password'   =>  Hash::make('password'),
         ]);
-        User::updateOrCreate([
-            'username'   => 'Vendor',
-            'full_name' => "Vendors",
-            'status' => 1,
-            'role'    => '2',
-            'phone'  => '+8801776446502',
-            'gender'     => '0',
-            'email'      => 'vendor@gmail.com',
-            'email_verified_at' => date('Y-m-d H:i:s'),
-            'password'   =>  Hash::make('password'),
-        ]);
-        User::updateOrCreate([
-            'username'   => 'User',
-            'full_name' => "Users",
-            'status' => 1,
-            'role'    => '3',
-            'phone'  => '+8801776446552',
-            'gender'     => '0',
-            'email'      => 'user@gmail.com',
-            'email_verified_at' => date('Y-m-d H:i:s'),
-            'password'   =>  Hash::make('password'),
-        ]);
     }
 
     /**
